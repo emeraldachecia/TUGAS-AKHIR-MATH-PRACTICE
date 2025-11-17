@@ -1,9 +1,26 @@
 const express = require("express");
+const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
+const path = require("path");
 const router = require("./routes");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(express.static(path.resolve("public")));
+
+app.set("view engine", "ejs");
+app.set("views", path.resolve("public/views"));
+
+app.use(expressLayouts);
+app.set("layout", "main");
+
+// Middleware untuk menangani request body dalam berbagai format
+app.use(express.json()); // Mengizinkan Express memproses request dalam format JSON
+app.use(express.urlencoded({ extended: true })); // Mengizinkan parsing data dalam format URL-encoded
 
 app.use("/", router);
 

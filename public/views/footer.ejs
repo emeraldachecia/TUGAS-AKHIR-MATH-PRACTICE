@@ -1,0 +1,30 @@
+<header class="header">
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="brand">Math Practice</a>
+        </div>
+
+        <% if (!user) { %>
+            <!-- Public navigation -->
+            <div class="navbar-right">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/auth" class="nav-link">Login</a>
+            </div>
+        <% } else if (user.role==="admin" ) { %>
+            <!-- Admin navigation -->
+            <div class="navbar-right">
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+                <a href="/user" class="nav-link">Users</a>
+                <a href="/template" class="nav-link">Templates</a>
+                <a href="/profile" class="nav-link">Profile</a>
+            </div>
+        <% } else if (user.role==="student" ) { %>
+            <!-- Student navigation -->
+            <div class="navbar-right">
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+                <a href="/exercise" class="nav-link">Exercises</a>
+                <a href="/profile" class="nav-link">Profile</a>
+            </div>
+        <% } %>
+    </nav>
+</header>

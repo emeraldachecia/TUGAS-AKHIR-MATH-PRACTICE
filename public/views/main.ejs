@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><%= title %> | Math Practice</title>
+
+    <!-- STYLE GLOBAL -->
+	<link rel="stylesheet" href="/styles/main.css" />
+
+    <!-- STYLE UNTUK PAGES -->
+    <% if (style) { %>
+        <link rel="stylesheet" href="/styles/<%= style %>" />
+    <% } %>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <%- include("header") %>
+    
+    <!-- MAIN CONTENT -->
+    <main class="page-container"><%- body %></main>
+        
+    <!-- FOOTER -->
+    <%- include("footer") %>
+        
+    <!-- NOTIFICATION -->
+    <%- include("notification") %>
+    
+    <!-- SCRIPT GLOBAL -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/scripts/main.js"></script>
+
+    <!-- SCRIPT UNTUK PAGE -->
+    <% if (script) { %>
+        <script src="/scripts/<%= script %>"></script>
+    <% } %>
+</body>
+</html>
