@@ -1,0 +1,35 @@
+{
+  "name": "tugas-akhir-math-practice",
+  "version": "1.0.0",
+  "description": "Tugas Akhir Pembangunan Perangkat Lunak Belajar Matematika Sederhana",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emeraldachecia/TUGAS-AKHIR-MATH-PRACTICE.git"
+  },
+  "author": "emeraldacp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emeraldachecia/TUGAS-AKHIR-MATH-PRACTICE/issues"
+  },
+  "homepage": "https://github.com/emeraldachecia/TUGAS-AKHIR-MATH-PRACTICE#readme",
+  "dependencies": {
+    "connect-session-sequelize": "^8.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.2",
+    "jio": "^3.45.0",
+    "mathjs": "^15.1.0",
+    "multer": "^2.0.2",
+    "mysql2": "^3.15.3",
+    "nodemon": "^3.1.11",
+    "sequelize": "^6.37.7",
+    "uuid": "^13.0.0"
+  }
+}
