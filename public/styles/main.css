@@ -1,0 +1,267 @@
+:root {
+    --primary: #f4ebdb;
+    --secondary: #0a3a32;
+    --tertiary: #b5cbbb;
+    --yellow: #feb83c;
+    --red: #e55548;
+    --blue: #368ea1;
+    --green: #32956c;
+    --grey: #7b8782;
+    --grey: #485550;
+    --white: #f1f0eb;
+
+    --text-dark: var(--secondary);
+    --text-light: var(--primary);
+
+    --shadow: rgba(0, 0, 0, 0.2);
+    --radius: 4px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: "Poppins", "Segoe UI", sans-serif;
+    background-color: var(--primary);
+    color: var(--text-dark);
+}
+
+.page-container {
+    min-height: calc(100vh - 120px);
+    /* header + footer space */
+    padding: 2rem 5%;
+}
+
+.header {
+    background-color: var(--secondary);
+    color: var(--text-light);
+    padding: 1rem 5%;
+    box-shadow: 0 2px 6px var(--shadow);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.brand:hover {
+    opacity: 0.8;
+}
+
+.navbar-right {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background-color: var(--yellow);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.logout {
+    color: var(--red);
+}
+
+.logout:hover {
+    color: var(--yellow);
+}
+
+.footer {
+    background-color: var(--secondary);
+    color: var(--text-light);
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.6rem 1.4rem;
+    background-color: var(--green);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
+
+.mt-3 {
+    margin-top: 3rem;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: var(--secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--green);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    cursor: grab;
+}
+
+.notification-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+}
+
+.notification-overlay.hidden {
+    display: none;
+}
+
+.notification-card {
+    width: 90%;
+    max-width: 420px;
+    background-color: var(--primary);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px var(--shadow);
+    overflow: hidden;
+    animation: fadeInScale 0.3s ease;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    color: var(--text-light);
+}
+
+.notification-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: opacity 0.2s ease;
+}
+
+.notification-close:hover {
+    opacity: 0.7;
+}
+
+.notification-body {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    color: var(--secondary);
+}
+
+.notification-icon svg {
+    width: 42px;
+    height: 42px;
+    stroke-width: 2;
+}
+
+.notification-error .notification-header {
+    background-color: var(--red);
+}
+
+.notification-error .notification-icon svg {
+    stroke: var(--red);
+}
+
+.notification-alert .notification-header {
+    background-color: var(--yellow);
+    color: var(--secondary);
+}
+
+.notification-alert .notification-icon svg {
+    stroke: var(--yellow);
+}
+
+.notification-success .notification-header {
+    background-color: var(--green);
+}
+
+.notification-success .notification-icon svg {
+    stroke: var(--green);
+}
+
+.notification-info .notification-header {
+    background-color: var(--blue);
+}
+
+.notification-info .notification-icon svg {
+    stroke: var(--blue);
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
