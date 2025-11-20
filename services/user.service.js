@@ -146,7 +146,7 @@ class UserService {
 			// mencari user berdasarkan id yang dikirim
 			const existing = await UserRepository.findOne(
 				// membuat filter pencarian berdasarkan user_id
-				filterHandler({ user_id: data.id })
+				filterHandler({ user_id: data.user_id })
 			);
 
 			// jika user tidak ditemukan, lempar error 404
@@ -157,7 +157,7 @@ class UserService {
 			}
 
 			// melakukan penghapusan user dan mendapatkan jumlah row yang terhapus
-			const deletedCount = await UserRepository.delete(data.id, dbTrx);
+			const deletedCount = await UserRepository.delete(data.user_id, dbTrx);
 
 			// jika user menghapus dirinya sendiri
 			if (data.id === session.user_id) {

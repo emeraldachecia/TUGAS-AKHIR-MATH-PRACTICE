@@ -6,13 +6,12 @@ const path = require("path");
 const { filterHandler } = require("../utils/filter-handler");
 
 class TemplateService {
-    async find(data, type) {
+	async find(data, type) {
 		try {
 			let result = {};
 
 			const filters = filterHandler(data);
 
-            // mengecek jenis pencarian berdasarkan 'type'
 			switch (type) {
 				case "summary":
 					result = await TemplateRepository.findMany(filters);
@@ -28,9 +27,9 @@ class TemplateService {
 		} catch (error) {
 			throw error;
 		}
-    }
-    
-    async create(data, file, session) {
+	}
+
+	async create(data, file, session) {
 		let dbTrx;
 		try {
 			dbTrx = await Connection.transaction();
@@ -61,9 +60,9 @@ class TemplateService {
 			if (dbTrx) await dbTrx.rollback();
 			throw error;
 		}
-    }
-    
-    async update(data, file, session) {
+	}
+
+	async update(data, file, session) {
 		let dbTrx;
 		try {
 			dbTrx = await Connection.transaction();
@@ -111,9 +110,9 @@ class TemplateService {
 			if (dbTrx) await dbTrx.rollback();
 			throw error;
 		}
-    }
-    
-    async delete(data, session) {
+	}
+
+	async delete(data, session) {
 		let dbTrx;
 		try {
 			dbTrx = await Connection.transaction();

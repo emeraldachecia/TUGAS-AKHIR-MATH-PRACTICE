@@ -102,7 +102,12 @@ class UserController {
 
     async delete(req, res) {
 		try {
-			const result = await UserService.delete(req.params, req.session.user);
+			const result = await UserService.delete(
+				{ user_id: req.params.user_id },
+				req.session.user,
+				req,
+				res
+			);
 
 			responseHandler(res, {
 				code: 200,

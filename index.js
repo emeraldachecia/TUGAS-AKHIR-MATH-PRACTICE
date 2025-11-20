@@ -24,6 +24,9 @@ app.set("layout", "main");
 app.use(express.json()); // Mengizinkan Express memproses request dalam format JSON
 app.use(express.urlencoded({ extended: true })); // Mengizinkan parsing data dalam format URL-encoded
 
+// Menggunakan body-parser untuk mengatur batas ukuran request body agar tidak terlalu besar
+app.use(bodyParser.json({ limit: "50mb" })); // Membatasi ukuran request body JSON maksimal 50MB
+
 app.use(sessionConfig);
 
 app.use("/", router);
