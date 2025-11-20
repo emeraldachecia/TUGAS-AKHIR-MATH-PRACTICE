@@ -24,4 +24,21 @@ router.get(
     PageController.profile
 );
 
+// EXERCISE
+router.get(
+	"/exercise",
+	authorization(["student"]),
+	PageController.exerciseSummary
+);
+router.get(
+	"/exercise/form",
+	authorization(["student"]),
+	PageController.exerciseForm
+);
+router.get(
+	"/exercise/:exercise_id",
+	authorization(["student"]),
+	PageController.exerciseDetail
+);
+
 module.exports = router;

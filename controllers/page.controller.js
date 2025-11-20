@@ -76,6 +76,55 @@ class PageController {
 			});
 		}
 	}
+
+	// EXERCISE
+	async exerciseSummary(req, res) {
+		try {
+			res.render("pages/exercise-summary", {
+				title: "Exercise Summary",
+				script: "exercise-summary.js",
+				style: "exercise-summary.css",
+				user: req.session.user,
+			});
+		} catch (error) {
+			responseHandler(res, {
+				code: error.code || 500,
+				errors: error.message,
+			});
+		}
+	}
+
+	async exerciseDetail(req, res) {
+		try {
+			res.render("pages/exercise-detail", {
+				title: "Exercise Detail",
+				script: "exercise-detail.js",
+				style: "exercise-detail.css",
+				user: req.session.user,
+			});
+		} catch (error) {
+			responseHandler(res, {
+				code: error.code || 500,
+				errors: error.message,
+			});
+		}
+	}
+
+	async exerciseForm(req, res) {
+		try {
+			res.render("pages/exercise-form", {
+				title: "Exercise Form",
+				script: "exercise-form.js",
+				style: "exercise-form.css",
+				user: req.session.user,
+			});
+		} catch (error) {
+			responseHandler(res, {
+				code: error.code || 500,
+				errors: error.message,
+			});
+		}
+	}
 }
 
 module.exports = new PageController();

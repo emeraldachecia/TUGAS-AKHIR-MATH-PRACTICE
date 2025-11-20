@@ -1,0 +1,218 @@
+{
+	"start_time": 1762618836000,
+	"end_time": 1762620036000,
+	"type": "arithmetic",
+	"level": "easy",
+	"questions": [
+		{
+			"template_id": "tpl-mhp21mp3-f0e714",
+			"content": "5 + 5 = ...",
+			"options": [
+				{
+					"content": "10",
+					"is_selected": true,
+					"is_correct": true
+				},
+				{
+					"content": "7",
+					"is_selected": false,
+					"is_correct": false
+				},
+				{
+					"content": "5",
+					"is_selected": false,
+					"is_correct": false
+				}
+			]
+		},
+		{
+			"template_id": "tpl-mhp21mp3-f0e714",
+			"content": "5 + 3 = ...",
+			"options": [
+				{
+					"content": "8",
+					"is_selected": true,
+					"is_correct": true
+				},
+				{
+					"content": "7",
+					"is_selected": false,
+					"is_correct": false
+				},
+				{
+					"content": "5",
+					"is_selected": false,
+					"is_correct": false
+				}
+			]
+		},
+		{
+			"template_id": "tpl-mhp21mp3-f0e714",
+			"content": "5 + (-3) = ...",
+			"options": [
+				{
+					"content": "2",
+					"is_selected": true,
+					"is_correct": true
+				},
+				{
+					"content": "7",
+					"is_selected": false,
+					"is_correct": false
+				},
+				{
+					"content": "5",
+					"is_selected": false,
+					"is_correct": false
+				}
+			]
+		},
+		{
+			"template_id": "tpl-mhp21mp3-f0e714",
+			"content": "5 + 9 = ...",
+			"options": [
+				{
+					"content": "14",
+					"is_selected": true,
+					"is_correct": true
+				},
+				{
+					"content": "7",
+					"is_selected": false,
+					"is_correct": false
+				},
+				{
+					"content": "5",
+					"is_selected": false,
+					"is_correct": false
+				}
+			]
+		},
+		{
+			"template_id": "tpl-mhp21mp3-f0e714",
+			"content": "5 + 1 = ...",
+			"options": [
+				{
+					"content": "6",
+					"is_selected": true,
+					"is_correct": true
+				},
+				{
+					"content": "7",
+					"is_selected": false,
+					"is_correct": false
+				},
+				{
+					"content": "5",
+					"is_selected": false,
+					"is_correct": false
+				}
+			]
+		},
+		{
+			"template_id": "tpl-mhp21mp3-f0e714",
+			"content": "5 + 20 = ...",
+			"options": [
+				{
+					"content": "25",
+					"is_selected": true,
+					"is_correct": true
+				},
+				{
+					"content": "7",
+					"is_selected": false,
+					"is_correct": false
+				},
+				{
+					"content": "5",
+					"is_selected": false,
+					"is_correct": false
+				}
+			]
+		},
+		{
+			"template_id": "tpl-mhp21mp3-f0e714",
+			"content": "5 + 98 = ...",
+			"options": [
+				{
+					"content": "103",
+					"is_selected": true,
+					"is_correct": true
+				},
+				{
+					"content": "7",
+					"is_selected": false,
+					"is_correct": false
+				},
+				{
+					"content": "5",
+					"is_selected": false,
+					"is_correct": false
+				}
+			]
+		},
+		{
+			"template_id": "tpl-mhp21mp3-f0e714",
+			"content": "5 + (-98) = ...",
+			"options": [
+				{
+					"content": "93",
+					"is_selected": true,
+					"is_correct": true
+				},
+				{
+					"content": "7",
+					"is_selected": false,
+					"is_correct": false
+				},
+				{
+					"content": "5",
+					"is_selected": false,
+					"is_correct": false
+				}
+			]
+		},
+		{
+			"template_id": "tpl-mhp21mp3-f0e714",
+			"content": "5 + 50 = ...",
+			"options": [
+				{
+					"content": "55",
+					"is_selected": true,
+					"is_correct": true
+				},
+				{
+					"content": "7",
+					"is_selected": false,
+					"is_correct": false
+				},
+				{
+					"content": "5",
+					"is_selected": false,
+					"is_correct": false
+				}
+			]
+		},
+		{
+			"template_id": "tpl-mhp21mp3-f0e714",
+			"content": "5 + 55 = ...",
+			"options": [
+				{
+					"content": "60",
+					"is_selected": true,
+					"is_correct": true
+				},
+				{
+					"content": "7",
+					"is_selected": false,
+					"is_correct": false
+				},
+				{
+					"content": "5",
+					"is_selected": false,
+					"is_correct": false
+				}
+			]
+		}
+	]
+}

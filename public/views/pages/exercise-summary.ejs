@@ -1,0 +1,83 @@
+<section class="exercise-summary">
+    <div class="container exercise-summary-container">
+        <div class="card exercise-summary-card">
+            <!-- Header -->
+            <div class="exercise-header">
+                <!-- Segmented Controls -->
+                <div class="filter-group">
+                    <div class="segment-control topic-filter">
+                        <button class="segment-btn active" data-topic="all">All</button>
+                        <button class="segment-btn" data-topic="arithmetic">
+                            Arithmetic
+                        </button>
+                        <button class="segment-btn" data-topic="geometry">Geometry</button>
+                    </div>
+
+                    <div class="segment-control level-filter">
+                        <button class="segment-btn active" data-level="all">All</button>
+                        <button class="segment-btn" data-level="easy">Easy</button>
+                        <button class="segment-btn" data-level="medium">Medium</button>
+                        <button class="segment-btn" data-level="hard">Hard</button>
+                    </div>
+                </div>
+
+                <!-- New Exercise Button -->
+                <button id="btnNewExercise" class="btn new-exercise-btn">
+                    New Exercise
+                </button>
+            </div>
+
+            <!-- Table -->
+            <table class="exercise-table">
+                <thead>
+                    <tr>
+                        <th data-sort="date">Date</th>
+                        <th data-sort="score">Score</th>
+                        <th data-sort="topic">Topic</th>
+                        <th data-sort="level">Level</th>
+                    </tr>
+                </thead>
+                <tbody id="exerciseTableBody">
+                    <tr>
+                        <td colspan="4" class="no-data">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <div class="pagination-container">
+                <button class="pagination-btn nav prev" id="prevPage">&laquo;</button>
+                <div id="paginationPages" class="pagination-pages"></div>
+                <button class="pagination-btn nav next" id="nextPage">&raquo;</button>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Popup Select Topic/Level -->
+<div id="popupOverlay" class="popup-overlay hidden">
+    <div class="popup_card">
+        <h3>Create New Exercise</h3>
+
+        <div class="popup_row">
+            <label>Topic</label>
+            <select id="popupTopic">
+                <option value="arithmetic">Arithmetic</option>
+                <option value="geometry">Geometry</option>
+            </select>
+        </div>
+
+        <div class="popup_row">
+            <label>Level</label>
+            <select id="popupLevel">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
+
+        <div class="popup-actions">
+            <button class="btn popup-cancel-btn" id="popupCancel">Cancel</button>
+            <button class="btn popup-start-btn" id="popupStart">Start</button>
+        </div>
+    </div>
+</div>
