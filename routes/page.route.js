@@ -58,5 +58,21 @@ router.get(
 	PageController.userDetail
 );
 
+// TEMPLATE
+router.get(
+	"/template",
+	authorization(["admin"]),
+	PageController.templateSummary
+);
+router.get(
+	"/template/form",
+	authorization(["admin"]),
+	PageController.templateForm
+);
+router.get(
+	"/template/:template_id",
+	authorization(["admin"]),
+	PageController.templateDetail
+);
 
 module.exports = router;

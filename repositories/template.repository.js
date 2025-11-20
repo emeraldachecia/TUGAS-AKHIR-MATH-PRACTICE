@@ -98,3 +98,5 @@ class TemplateRepository {
 		}
 	}
 }
+
+module.exports = new TemplateRepository();

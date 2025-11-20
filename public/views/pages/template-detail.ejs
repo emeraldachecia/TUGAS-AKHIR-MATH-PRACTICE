@@ -1,0 +1,75 @@
+<section class="template-detail">
+    <div class="container template-detail-container">
+        <div class="card template-detail-card">
+            <!-- Header -->
+            <div class="template-detail-header">
+                <h2>Template Detail</h2>
+                <button id="btnEdit" class="btn edit-btn inactive">Edit</button>
+            </div>
+
+            <form id="templateDetailForm" class="template-detail-form" enctype="multipart/form-data">
+                <!-- Content -->
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <textarea id="content" rows="4" placeholder="Template content..." disabled></textarea>
+                </div>
+
+                <!-- Formula -->
+                <div class="form-group">
+                    <label for="formula">Formula</label>
+                    <input type="text" id="formula" name="formula" placeholder="Enter formula expression..." disabled />
+                </div>
+
+                <!-- Topic -->
+                <div class="form-group">
+                    <label for="topic">Topic</label>
+                    <select id="topic" disabled>
+                        <option value="">-- Select Topic --</option>
+                        <option value="arithmetic">Arithmetic</option>
+                        <option value="geometry">Geometry</option>
+                    </select>
+                </div>
+
+                <!-- Level -->
+                <div class="form-group">
+                    <label for="level">Level</label>
+                    <select id="level" disabled>
+                        <option value="">-- Select Level --</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+
+                <!-- Image -->
+                <div class="form-group image-group">
+                    <label for="image">Image</label>
+
+                    <div class="image-preview-container" id="imagePreviewContainer">
+                        <!-- Will be filled by JS -->
+                    </div>
+
+                    <input type="file" id="image" name="image" accept="image/*" class="image-input hidden" />
+
+                    <button type="button" id="btnRemoveImage" class="btn remove-image-btn hidden">
+                        Remove Image
+                    </button>
+                </div>
+
+                <!-- Actions -->
+                <div class="template-detail-actions">
+                    <div class="left-actions">
+                        <button type="button" id="btnDelete" class="btn delete-btn">
+                            Delete
+                        </button>
+                    </div>
+                    <div class="right-actions">
+                        <button type="submit" id="btnSave" class="btn save-btn hidden">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

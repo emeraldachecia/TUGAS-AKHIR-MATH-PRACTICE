@@ -24,6 +24,7 @@
     "express": "^5.1.0",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.18.2",
+    "fs": "^0.0.1-security",
     "jio": "^3.45.0",
     "joi": "^18.0.1",
     "mathjs": "^15.1.0",

@@ -1,0 +1,60 @@
+<section class="template-summary">
+    <div class="container template-summary-container">
+        <div class="card template-summary-card">
+            <!-- Header -->
+            <div class="template-table-header">
+                <!-- Left: Search -->
+                <div class="template-search">
+                    <input type="text" id="searchInput" placeholder="Search by content..." />
+                </div>
+
+                <!-- Center: Segmented control (2 baris: topic & level) -->
+                <div class="template-filter-group">
+                    <div class="template-topic-filter">
+                        <button class="segment-btn active" data-topic="all">All</button>
+                        <button class="segment-btn" data-topic="arithmetic">
+                            Arithmetic
+                        </button>
+                        <button class="segment-btn" data-topic="geometry">Geometry</button>
+                    </div>
+                    <div class="template-level-filter">
+                        <button class="segment-btn active" data-level="all">All</button>
+                        <button class="segment-btn" data-level="easy">Easy</button>
+                        <button class="segment-btn" data-level="medium">Medium</button>
+                        <button class="segment-btn" data-level="hard">Hard</button>
+                    </div>
+                </div>
+
+                <!-- Right: New Template -->
+                <div class="template-action">
+                    <button id="btnNewTemplate" class="btn new-template-btn">
+                        New Template
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <table class="template-table">
+                <thead>
+                    <tr>
+                        <th>Content</th>
+                        <th>Topic</th>
+                        <th>Level</th>
+                    </tr>
+                </thead>
+                <tbody id="templateTableBody">
+                    <tr>
+                        <td colspan="3" class="no-data">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <div class="pagination-container">
+                <button class="pagination-btn nav prev" id="prevPage">&laquo;</button>
+                <div id="paginationPages" class="pagination-pages"></div>
+                <button class="pagination-btn nav next" id="nextPage">&raquo;</button>
+            </div>
+        </div>
+    </div>
+</section>

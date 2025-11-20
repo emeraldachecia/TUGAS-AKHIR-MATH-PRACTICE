@@ -174,6 +174,56 @@ class PageController {
 			});
 		}
 	}
+
+	// TEMPLATE
+	async templateSummary(req, res) {
+		try {
+			res.render("pages/template-summary", {
+				title: "Template Summary",
+				script: "template-summary.js",
+				style: "template-summary.css",
+				user: req.session.user,
+			});
+		} catch (error) {
+			responseHandler(res, {
+				code: error.code || 500,
+				errors: error.message,
+			});
+		}
+	}
+	
+	async templateDetail(req, res) {
+		try {
+			res.render("pages/template-detail", {
+				title: "Template Detail",
+				script: "template-detail.js",
+				style: "template-detail.css",
+				user: req.session.user,
+			});
+		} catch (error) {
+			responseHandler(res, {
+				code: error.code || 500,
+				errors: error.message,
+			});
+		}
+	}
+
+	async templateForm(req, res) {
+		try {
+			res.render("pages/template-form", {
+				title: "Template Form",
+				script: "template-form.js",
+				style: "template-form.css",
+				user: req.session.user,
+			});
+		} catch (error) {
+			responseHandler(res, {
+				code: error.code || 500,
+				errors: error.message,
+			});
+		}
+	}
 }
+
 
 module.exports = new PageController();
