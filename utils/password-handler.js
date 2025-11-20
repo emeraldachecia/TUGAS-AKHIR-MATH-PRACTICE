@@ -15,7 +15,7 @@ const passwordHandler = {
             // memasukkan password asli
             .update(plainPassword)
             // mengeluarkan dalam format hex
-            .digest(hex)
+            .digest("hex")
         
         // return hasil hash
         return hash;
@@ -29,7 +29,7 @@ const passwordHandler = {
         const newHash = crypto
             .createHash("sha256")
             .update(plainPassword)
-            .digest(hex)
+            .digest("hex")
         
         // membandingkan hash baru dengan hash yang disimpan
         return storedHash === newHash;

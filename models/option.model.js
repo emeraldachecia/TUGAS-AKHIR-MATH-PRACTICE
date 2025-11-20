@@ -1,4 +1,4 @@
-const Identifier = require("../utils/identifier-handler.util");
+const Identifier = require("../utils/identifier-handler");
 const Connection = require("../configs/database.config");
 const { DataTypes } = require("sequelize");
 

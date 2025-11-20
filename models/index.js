@@ -1,7 +1,7 @@
 const UserModel = require("./user.model");
 const TemplateModel = require("./template.model");
 const ExerciseModel = require("./exercise.model");
-const  QuestionModel = require("./question.model");
+const QuestionModel = require("./question.model");
 const OptionModel = require("./option.model");
 
 const associations = require("./associations");
