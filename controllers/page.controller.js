@@ -4,9 +4,9 @@ class PageController {
 	// HOME PAGE
     async home(req, res) {
        try {
-			// if (req.session?.user) {
-			// 	return res.redirect("/dashboard");
-			// }
+			if (req.session?.user) {
+				return res.redirect("/dashboard");
+			}
 
 			res.render("pages/home", {
 				title: "Home",
@@ -24,9 +24,9 @@ class PageController {
 	
 	// LOGIN REGISTER PAGE
 	async auth(req, res) {
-		// if (req.session?.user) {
-		// 	return res.redirect("/dashboard");
-		// }
+		if (req.session?.user) {
+			return res.redirect("/dashboard");
+		}
 
 		try {
 			res.render("pages/auth", {
@@ -34,6 +34,40 @@ class PageController {
 				script: "auth.js",
 				style: "auth.css",
 				user: null,
+			});
+		} catch (error) {
+			responseHandler(res, {
+				code: error.code || 500,
+				errors: error.message,
+			});
+		}
+	}
+
+	// DASHBOARD
+	async dashboard(req, res) {
+		try {
+			res.render("pages/dashboard", {
+				title: "Dashboard",
+				script: "dashboard.js",
+				style: "dashboard.css",
+				user: req.session.user,
+			});
+		} catch (error) {
+			responseHandler(res, {
+				code: error.code || 500,
+				errors: error.message,
+			});
+		}
+	}
+
+	// PROFILE
+	async profile(req, res) {
+		try {
+			res.render("pages/profile", {
+				title: "Profile",
+				script: "profile.js",
+				style: "profile.css",
+				user: req.session.user,
 			});
 		} catch (error) {
 			responseHandler(res, {

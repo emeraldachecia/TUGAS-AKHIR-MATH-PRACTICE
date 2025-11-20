@@ -1,0 +1,99 @@
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px);
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.profile-card {
+    background-color: var(--primary);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px var(--shadow);
+    padding: 2rem;
+    position: relative;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.profile-header h2 {
+    color: var(--secondary);
+    font-size: 1.6rem;
+}
+
+.edit-btn.active {
+    background-color: var(--yellow);
+    color: var(--text-light);
+}
+
+.edit-btn.inactive {
+    background-color: var(--grey);
+    cursor: pointer;
+}
+
+.save-btn {
+    background-color: var(--green);
+    color: var(--white);
+}
+
+.save-btn.hidden {
+    display: none;
+}
+
+.signout-btn {
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.profile-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: var(--secondary);
+    margin-bottom: 0.4rem;
+}
+
+.form-group input {
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--tertiary);
+    border-radius: var(--radius);
+    outline: none;
+}
+
+.form-group input:disabled {
+    background-color: #e5e1d6;
+    cursor: not-allowed;
+}
+
+.form-group input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px rgba(54, 142, 161, 0.3);
+}
+
+.hidden {
+    display: none;
+}
