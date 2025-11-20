@@ -1,0 +1,98 @@
+.user-detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px);
+}
+
+.user-detail-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.user-detail-card {
+    background-color: var(--primary);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px var(--shadow);
+    padding: 2rem;
+}
+
+.user-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.user-detail-header h2 {
+    color: var(--secondary);
+}
+
+.edit-btn.inactive {
+    background-color: gray;
+    cursor: pointer;
+}
+
+.edit-btn.active {
+    background-color: var(--green);
+    color: var(--text-light);
+}
+
+.user-detail-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: var(--secondary);
+    margin-bottom: 0.4rem;
+}
+
+.form-group input {
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--tertiary);
+    border-radius: var(--radius);
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px rgba(54, 142, 161, 0.3);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.user-detail-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.delete-btn {
+    background-color: var(--red);
+    color: var(--text-light);
+}
+
+.save-btn {
+    background-color: var(--green);
+    color: var(--text-light);
+}
+
+.edit-btn.inactive {
+    background-color: var(--grey);
+    cursor: pointer;
+}
+
+.edit-btn.active {
+    background-color: var(--yellow);
+    color: var(--text-light);
+}

@@ -125,6 +125,55 @@ class PageController {
 			});
 		}
 	}
+
+	// USER
+	async userSummary(req, res) {
+		try {
+			res.render("pages/user-summary", {
+				title: "User Summary",
+				script: "user-summary.js",
+				style: "user-summary.css",
+				user: req.session.user,
+			});
+		} catch (error) {
+			responseHandler(res, {
+				code: error.code || 500,
+				errors: error.message,
+			});
+		}
+	}
+	
+	async userDetail(req, res) {
+		try {
+			res.render("pages/user-detail", {
+				title: "User Detail",
+				script: "user-detail.js",
+				style: "user-detail.css",
+				user: req.session.user,
+			});
+		} catch (error) {
+			responseHandler(res, {
+				code: error.code || 500,
+				errors: error.message,
+			});
+		}
+	}
+
+	async userForm(req, res) {
+		try {
+			res.render("pages/user-form", {
+				title: "User Form",
+				script: "user-form.js",
+				style: "user-form.css",
+				user: req.session.user,
+			});
+		} catch (error) {
+			responseHandler(res, {
+				code: error.code || 500,
+				errors: error.message,
+			});
+		}
+	}
 }
 
 module.exports = new PageController();

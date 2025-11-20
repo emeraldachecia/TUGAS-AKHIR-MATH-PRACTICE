@@ -1,0 +1,47 @@
+<section class="user-summary">
+    <div class="container user-summary-container">
+        <div class="card user-summary-card">
+            <div class="user-table-header">
+                <!-- Left: Search -->
+                <div class="user-search">
+                    <input type="text" id="searchInput" placeholder="Search by name or email..." />
+                </div>
+
+                <!-- Center: Segmented control -->
+                <div class="user-role-filter">
+                    <button class="segment-btn active" data-role="all">All</button>
+                    <button class="segment-btn" data-role="admin">Admin</button>
+                    <button class="segment-btn" data-role="student">Student</button>
+                </div>
+
+                <!-- Right: New Admin -->
+                <div class="user-action">
+                    <button id="btnNewAdmin" class="btn new-admin-btn">New Admin</button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    <tr>
+                        <td colspan="3" class="no-data">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <div class="pagination-container">
+                <button class="pagination-btn nav prev" id="prevPage">&laquo;</button>
+                <div id="paginationPages" class="pagination-pages"></div>
+                <button class="pagination-btn nav next" id="nextPage">&raquo;</button>
+            </div>
+        </div>
+    </div>
+</section>

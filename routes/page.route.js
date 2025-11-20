@@ -41,4 +41,22 @@ router.get(
 	PageController.exerciseDetail
 );
 
+// USER
+router.get(
+	"/user", //
+	authorization(["admin"]),
+	PageController.userSummary
+);
+router.get(
+	"/user/form", //
+	authorization(["admin"]),
+	PageController.userForm
+);
+router.get(
+	"/user/:user_id", //
+	authorization(["admin"]),
+	PageController.userDetail
+);
+
+
 module.exports = router;
