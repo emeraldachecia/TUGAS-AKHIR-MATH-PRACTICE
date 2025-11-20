@@ -119,7 +119,7 @@ class TemplateService {
 			dbTrx = await Connection.transaction();
 
 			const existing = await TemplateRepository.findOne(
-				filterHandler({ template_id: data.id })
+				filterHandler({ template_id: data.template_id })
 			);
 
 			if (!existing) {
@@ -128,7 +128,7 @@ class TemplateService {
 				});
 			}
 
-			const deletedCount = await TemplateRepository.delete(data.id, dbTrx);
+			const deletedCount = await TemplateRepository.delete(data.template_id, dbTrx);
 
 			// hapus gambar kalau ada
 			if (existing.image) {
