@@ -9,6 +9,127 @@ const {
 } = require("../models");
 
 class ExerciseRepository {
+	async getDashboard(userId) {
+		try {
+			const rows = await ExerciseModel.findAll({
+				where: { user_id: userId, status: "submitted" },
+				attributes: ["exercise_id", "topic", "level"],
+				include: [
+					{
+						model: QuestionModel,
+						required: true,
+						attributes: ["question_id"],
+						include: [
+							{
+								model: OptionModel,
+								attributes: ["option_id", "is_correct", "is_selected"],
+								required: true,
+							},
+						],
+					},
+				],
+			});
+
+			const formatResult = (rows) => {
+				// menghitung skor setiap exercise
+				const scores = rows.map((ex) => {
+					let correct = 0;
+					const totalQ = ex.questions.length;
+
+					for (const q of ex.questions) {
+						const ok = q.options.some((o) => o.is_selected && o.is_correct);
+						if (ok) correct++;
+					}
+
+					return totalQ > 0 ? Math.round((correct / totalQ) * 100) : 0;
+				});
+
+				// total latihan
+				const calculateTotal = (topic, level) => {
+					return rows.filter((ex) => {
+						if (topic && ex.topic !== topic) return false;
+						if (level && ex.level !== level) return false;
+						return true;
+					}).length;
+				};
+
+				const calculateSumScore = (topic, level) => {
+					let sum = 0;
+
+					rows.forEach((ex, i) => {
+						if (topic && ex.topic !== topic) return;
+						if (level && ex.level !== level) return;
+						sum += scores[i];
+					});
+
+					return sum;
+				};
+
+				const calculateAvg = (topic, level) => {
+					const total = calculateTotal(topic, level);
+					if (total === 0) return 0;
+
+					const sum = calculateSumScore(topic, level);
+					return Math.round(sum / total);
+				};
+
+				return {
+					overall: {
+						total_exercise: calculateTotal(),
+						total_score: calculateSumScore(),
+						average_score: calculateAvg(),
+					},
+					arithmetic: {
+						total_exercise: calculateTotal("arithmetic"),
+						total_score: calculateSumScore("arithmetic"),
+						average_score: calculateAvg("arithmetic"),
+
+						easy: {
+							total_exercise: calculateTotal("arithmetic", "easy"),
+							total_score: calculateSumScore("arithmetic", "easy"),
+							average_score: calculateAvg("arithmetic", "easy"),
+						},
+						medium: {
+							total_exercise: calculateTotal("arithmetic", "medium"),
+							total_score: calculateSumScore("arithmetic", "medium"),
+							average_score: calculateAvg("arithmetic", "medium"),
+						},
+						hard: {
+							total_exercise: calculateTotal("arithmetic", "hard"),
+							total_score: calculateSumScore("arithmetic", "hard"),
+							average_score: calculateAvg("arithmetic", "hard"),
+						},
+					},
+					geometry: {
+						total_exercise: calculateTotal("geometry"),
+						total_score: calculateSumScore("geometry"),
+						average_score: calculateAvg("geometry"),
+
+						easy: {
+							total_exercise: calculateTotal("geometry", "easy"),
+							total_score: calculateSumScore("geometry", "easy"),
+							average_score: calculateAvg("geometry", "easy"),
+						},
+						medium: {
+							total_exercise: calculateTotal("geometry", "medium"),
+							total_score: calculateSumScore("geometry", "medium"),
+							average_score: calculateAvg("geometry", "medium"),
+						},
+						hard: {
+							total_exercise: calculateTotal("geometry", "hard"),
+							total_score: calculateSumScore("geometry", "hard"),
+							average_score: calculateAvg("geometry", "hard"),
+						},
+					},
+				};
+			};
+
+			return formatResult(rows);
+		} catch (error) {
+			throw error;
+		}
+	}
+
     async findMany(filters) {
         try {
             // mengambil semua exercise dari db sesuai dengan filter yang dikirim

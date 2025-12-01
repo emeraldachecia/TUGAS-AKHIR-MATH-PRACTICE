@@ -190,6 +190,8 @@ class UserService {
 				filterHandler({ email: data.email })
 			);
 
+			console.log(data);
+
 			// jika user tidak ditemukan, lempar error 404
 			if (!existing) {
 				throw Object.assign(new Error("User not found."), {

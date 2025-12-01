@@ -1,3 +1,4 @@
+const exerciseRepository = require("../repositories/exercise.repository");
 const responseHandler = require("../utils/response-handler");
 
 class PageController {
@@ -46,11 +47,59 @@ class PageController {
 	// DASHBOARD
 	async dashboard(req, res) {
 		try {
+			const dataAdmin = {
+				total_users: 124,
+				total_templates: 42,
+				total_exercises: 940,
+				avg_score_all: 71,
+
+				top10: [
+					{ student_id: "usr-001", name: "Alice Johnson", total_score: 982 },
+					{ student_id: "usr-002", name: "Michael Hart", total_score: 954 },
+					{ student_id: "usr-003", name: "Sarah Tan", total_score: 921 },
+					{ student_id: "usr-004", name: "Ricky Gunawan", total_score: 890 },
+					{ student_id: "usr-005", name: "Siti Rahma", total_score: 875 },
+					{ student_id: "usr-006", name: "Kevin Lau", total_score: 861 },
+					{ student_id: "usr-007", name: "Dewi Lestari", total_score: 850 },
+					{ student_id: "usr-008", name: "Jason Lim", total_score: 842 },
+					{ student_id: "usr-009", name: "Maria Clara", total_score: 831 },
+					{ student_id: "usr-010", name: "Andre Sebastian", total_score: 820 },
+				],
+			};
+
+			const dataStudent = {
+				overall: {
+					total_exercise: 28,
+					average_score: 74,
+				},
+				arithmetic: {
+					total_exercise: 18,
+					average_score: 78,
+					easy: { total_exercise: 8, average_score: 85 },
+					medium: { total_exercise: 6, average_score: 74 },
+					hard: { total_exercise: 4, average_score: 66 },
+				},
+				geometry: {
+					total_exercise: 10,
+					average_score: 68,
+					easy: { total_exercise: 4, average_score: 72 },
+					medium: { total_exercise: 4, average_score: 65 },
+					hard: { total_exercise: 2, average_score: 60 },
+				},
+			};
+
+			const role = req.session.user.role;
+			const userId = req.session.user.user_id;
+
 			res.render("pages/dashboard", {
 				title: "Dashboard",
 				script: "dashboard.js",
 				style: "dashboard.css",
 				user: req.session.user,
+				data:
+					role === "admin"
+						? dataAdmin
+						: await exerciseRepository.getDashboard(userId),
 			});
 		} catch (error) {
 			responseHandler(res, {

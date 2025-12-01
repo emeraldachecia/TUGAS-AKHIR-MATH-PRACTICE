@@ -1,0 +1,237 @@
+.dashboard-page {
+    padding: 2rem 0;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    /* Jarak antar card utama */
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ============================================================
+   MAIN CARD
+   ============================================================ */
+.main-card {
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    box-shadow: 0 4px 12px var(--shadow);
+    width: 100%;
+}
+
+.main-card-title {
+    font-size: 1.7rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 1.2rem;
+    width: 100%;
+}
+
+/* CARD UTAMA 1 (OVERALL) */
+.main-card-overall {
+    background-color: var(--secondary);
+    color: var(--primary);
+    margin-bottom: 2rem;
+}
+
+/* CARD UTAMA 2 & 3 */
+.main-card-topic {
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+
+/* ============================================================
+   OVERALL GRID
+   ============================================================ */
+.overall-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    width: 100%;
+}
+
+.child-card {
+    border-radius: var(--radius);
+    padding: 1.3rem 1.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--primary);
+    box-shadow: 0 3px 8px var(--shadow);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.child-label {
+    font-size: 1.25rem;
+    /* FIXED: DIBESARKAN */
+    font-weight: 700;
+}
+
+.child-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+/* ============================================================
+   ARITHMETIC + GEOMETRY LAYOUT
+   ============================================================ */
+.dashboard-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+@media (max-width: 840px) {
+    .dashboard-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   TOPIC SUMMARY
+   ============================================================ */
+.topic-summary {
+    /* display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	background-color: rgba(0, 0, 0, 0.05);
+	padding: 0.9rem 1.2rem;
+	border-radius: var(--radius);
+	font-weight: 700;
+	margin-bottom: 1.2rem;
+	font-size: 1.05rem; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    background-color: rgba(0, 0, 0, 0.07);
+    padding: 0.9rem 1.2rem;
+    border-radius: var(--radius);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.topic-summary span {
+    white-space: nowrap;
+}
+
+/* ============================================================
+   TOPIC LEVEL CARDS
+   ============================================================ */
+.topic-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.level-card {
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    color: var(--text-light);
+    box-shadow: 0 2px 6px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    text-align: center;
+}
+
+.level-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 0.4rem;
+}
+
+.level-content {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+/* Colors */
+.level-easy {
+    background-color: var(--green);
+}
+
+.level-medium {
+    background-color: var(--blue);
+}
+
+.level-hard {
+    background-color: var(--red);
+}
+
+/* ============================================================
+   ADMIN SECTION
+   ============================================================ */
+.admin-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 1.2rem;
+    text-align: center;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.admin-card {
+    background-color: var(--primary);
+    border-radius: var(--radius);
+    box-shadow: 0 3px 8px var(--shadow);
+    padding: 1.2rem;
+    text-align: center;
+}
+
+.admin-label {
+    color: var(--secondary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.admin-number {
+    font-size: 2.3rem;
+    color: var(--green);
+    font-weight: 800;
+    margin-top: 0.4rem;
+}
+
+/* TOP 10 TABLE */
+.top10-title {
+    margin-top: 2rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.top10-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 3px 8px var(--shadow);
+}
+
+.top10-table th {
+    background-color: var(--secondary);
+    color: var(--primary);
+    padding: 0.7rem;
+    font-size: 1.1rem;
+}
+
+.top10-table td {
+    padding: 0.7rem;
+    border-bottom: 1px solid var(--tertiary);
+    font-size: 1rem;
+}
+
+.top10-table tr:nth-child(even) td {
+    background-color: rgba(0, 0, 0, 0.04);
+}

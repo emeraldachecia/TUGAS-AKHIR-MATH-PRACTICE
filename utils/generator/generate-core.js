@@ -106,7 +106,7 @@ function generateOptions(correct, count) {
 
 	return shuffle(
 		[...opts].map((v) => ({
-			content: v.toString(),
+			content: Number.isInteger(v) ? v.toString() : v.toFixed(2),
 			is_correct: v === correct,
 			is_selected: false,
 		}))

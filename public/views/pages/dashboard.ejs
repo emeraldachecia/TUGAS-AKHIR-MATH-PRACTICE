@@ -1,0 +1,272 @@
+<div class="dashboard-page">
+    <!-- data user -->
+    <script id="dataUser" type="application/json">
+		<%- JSON.stringify(user) %>
+	</script>
+
+    <script id="dataDashboard" type="application/json">
+		<%- JSON.stringify(data) %>
+	</script>
+
+    <!-- ====================== STUDENT DASHBOARD ======================= -->
+    <% if (user.role==='student' ) { %>
+        <section id="studentDashboard">
+            <!-- ========== CARD UTAMA 1 (OVERALL) ========== -->
+            <div class="main-card main-card-overall">
+                <h2 class="main-card-title">Overall Performance</h2>
+
+                <div class="overall-grid">
+                    <div class="child-card">
+                        <span class="child-label">Total Exercises</span>
+                        <span class="child-number">
+                            <%= data.overall.total_exercise %>
+                        </span>
+                    </div>
+
+                    <div class="child-card">
+                        <span class="child-label">Average Score</span>
+                        <span class="child-number">
+                            <%= data.overall.average_score %>
+                        </span>
+                    </div>
+
+                    <div class="child-card">
+                        <span class="child-label">Total Score</span>
+                        <span class="child-number">
+                            <%= data.overall.total_score %>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== BARIS CARD UTAMA 2 & 3 ========== -->
+            <div class="dashboard-row">
+                <!-- ========== CARD UTAMA 2 (ARITHMETIC) ========== -->
+                <div class="main-card main-card-topic">
+                    <h2 class="main-card-title">Arithmetic</h2>
+
+                    <div class="topic-summary">
+                        <span>Total Exercises:
+                            <strong>
+                                <%= data.arithmetic.total_exercise %>
+                            </strong></span>
+                        <span>Total Score:
+                            <strong>
+                                <%= data.arithmetic.total_score %>
+                            </strong></span>
+                        <span>Average Score:
+                            <strong>
+                                <%= data.arithmetic.average_score %>
+                            </strong></span>
+                    </div>
+
+                    <div class="topic-levels">
+                        <!-- EASY -->
+                        <div class="level-card level-easy">
+                            <div class="level-title">Easy</div>
+                            <div class="level-content">
+                                <span>Total Exercises:
+                                    <strong>
+                                        <%= data.arithmetic.easy.total_exercise %>
+                                    </strong></span>
+                                <span>Total Score:
+                                    <strong>
+                                        <%= data.arithmetic.easy.total_score %>
+                                    </strong></span>
+                                <span>Average Score:
+                                    <strong>
+                                        <%= data.arithmetic.easy.average_score %>
+                                    </strong></span>
+                            </div>
+                        </div>
+
+                        <!-- MEDIUM -->
+                        <div class="level-card level-medium">
+                            <div class="level-title">Medium</div>
+                            <div class="level-content">
+                                <span>Total Exercises:
+                                    <strong>
+                                        <%= data.arithmetic.medium.total_exercise %>
+                                    </strong></span>
+                                <span>Total Score:
+                                    <strong>
+                                        <%= data.arithmetic.medium.total_score %>
+                                    </strong></span>
+                                <span>Average Score:
+                                    <strong>
+                                        <%= data.arithmetic.medium.average_score %>
+                                    </strong></span>
+                            </div>
+                        </div>
+
+                        <!-- HARD -->
+                        <div class="level-card level-hard">
+                            <div class="level-title">Hard</div>
+                            <div class="level-content">
+                                <span>Total Exercises:
+                                    <strong>
+                                        <%= data.arithmetic.hard.total_exercise %>
+                                    </strong></span>
+                                <span>Total Score:
+                                    <strong>
+                                        <%= data.arithmetic.hard.total_score %>
+                                    </strong></span>
+                                <span>Average Score:
+                                    <strong>
+                                        <%= data.arithmetic.hard.average_score %>
+                                    </strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== CARD UTAMA 3 (GEOMETRY) ========== -->
+                <div class="main-card main-card-topic">
+                    <h2 class="main-card-title">Geometry</h2>
+
+                    <div class="topic-summary">
+                        <span>Total Exercises:
+                            <strong>
+                                <%= data.geometry.total_exercise %>
+                            </strong></span>
+                        <span>Total Score:
+                            <strong>
+                                <%= data.geometry.total_score %>
+                            </strong></span>
+                        <span>Average Score:
+                            <strong>
+                                <%= data.geometry.average_score %>
+                            </strong></span>
+                    </div>
+
+                    <div class="topic-levels">
+                        <!-- EASY -->
+                        <div class="level-card level-easy">
+                            <div class="level-title">Easy</div>
+                            <div class="level-content">
+                                <span>Total Exercises:
+                                    <strong>
+                                        <%= data.geometry.easy.total_exercise %>
+                                    </strong></span>
+                                <span>Total Score:
+                                    <strong>
+                                        <%= data.geometry.easy.total_score %>
+                                    </strong></span>
+                                <span>Average Score:
+                                    <strong>
+                                        <%= data.geometry.easy.average_score %>
+                                    </strong></span>
+                            </div>
+                        </div>
+
+                        <!-- MEDIUM -->
+                        <div class="level-card level-medium">
+                            <div class="level-title">Medium</div>
+                            <div class="level-content">
+                                <span>Total Exercises:
+                                    <strong>
+                                        <%= data.geometry.medium.total_exercise %>
+                                    </strong></span>
+                                <span>Total Score:
+                                    <strong>
+                                        <%= data.geometry.medium.total_score %>
+                                    </strong></span>
+                                <span>Average Score:
+                                    <strong>
+                                        <%= data.geometry.medium.average_score %>
+                                    </strong></span>
+                            </div>
+                        </div>
+
+                        <!-- HARD -->
+                        <div class="level-card level-hard">
+                            <div class="level-title">Hard</div>
+                            <div class="level-content">
+                                <span>Total Exercises:
+                                    <strong>
+                                        <%= data.geometry.hard.total_exercise %>
+                                    </strong></span>
+                                <span>Total Score:
+                                    <strong>
+                                        <%= data.geometry.hard.total_score %>
+                                    </strong></span>
+                                <span>Average Score:
+                                    <strong>
+                                        <%= data.geometry.hard.average_score %>
+                                    </strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <% } %>
+
+            <!-- ====================== ADMIN DASHBOARD ====================== -->
+            <% if (user.role==='admin' ) { %>
+                <section id="adminDashboard">
+                    <h2 class="admin-title">Admin Statistics</h2>
+
+                    <div class="admin-grid">
+                        <div class="admin-card">
+                            <span class="admin-label">Total Users</span>
+                            <span class="admin-number">
+                                <%= data.total_users %>
+                            </span>
+                        </div>
+
+                        <div class="admin-card">
+                            <span class="admin-label">Templates</span>
+                            <span class="admin-number">
+                                <%= data.total_templates %>
+                            </span>
+                        </div>
+
+                        <div class="admin-card">
+                            <span class="admin-label">Exercises Generated</span>
+                            <span class="admin-number">
+                                <%= data.total_exercises %>
+                            </span>
+                        </div>
+
+                        <div class="admin-card">
+                            <span class="admin-label">Average Score</span>
+                            <span class="admin-number">
+                                <%= data.avg_score_all %>
+                            </span>
+                        </div>
+                    </div>
+
+                    <h3 class="top10-title">Top 10 Students</h3>
+                    <table class="top10-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student</th>
+                                <th>Total Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (data.top10 && data.top10.length> 0) { %> <% data.top10.forEach((s, i)=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= i + 1 %>
+                                        </td>
+                                        <td>
+                                            <%= s.name %>
+                                        </td>
+                                        <td>
+                                            <%= s.total_score %>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td colspan="3">No data</td>
+                                            </tr>
+                                            <% } %>
+                        </tbody>
+                    </table>
+                </section>
+                <% } %>
+</div>

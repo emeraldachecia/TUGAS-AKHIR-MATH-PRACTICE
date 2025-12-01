@@ -12,7 +12,7 @@ function applyAssociations(models) {
 	ExerciseModel.belongsTo(UserModel, {
 		foreignKey: "user_id",
 		targetKey: "user_id",
-		onDelete: "RESTRICT",
+		onDelete: "CASCADE",
 		onUpdate: "CASCADE",
 	});
 
@@ -39,7 +39,7 @@ function applyAssociations(models) {
 	QuestionModel.belongsTo(TemplateModel, {
 		foreignKey: "template_id",
 		targetKey: "template_id",
-		onDelete: "RESTRICT",
+		onDelete: "CASCADE",
 		onUpdate: "CASCADE",
 	});
 
@@ -53,7 +53,7 @@ function applyAssociations(models) {
 	OptionModel.belongsTo(QuestionModel, {
 		foreignKey: "question_id",
 		targetKey: "question_id",
-		onDelete: "RESTRICT",
+		onDelete: "CASCADE",
 		onUpdate: "CASCADE",
 	});
 

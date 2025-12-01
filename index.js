@@ -12,6 +12,19 @@ const port = process.env.PORT || 3000;
 const sessionConfig = require("./configs/session.config");
 const router = require("./routes");
 
+(async () => {
+	try {
+		// // Menyesuaikan tabel database dengan model terbaru
+		// await databaseSynchronizer(false, true);
+
+		// // Menghapus semua session di database agar memulai dari sesi yang bersih
+		// await clearSession();
+	} catch (error) {
+		console.error(error);
+		process.exit(1); // Jika terjadi error saat sinkronisasi atau pembersihan session, hentikan aplikasi
+	}
+})();
+
 app.use(express.static(path.resolve("public")));
 
 app.set("view engine", "ejs");
