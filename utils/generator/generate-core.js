@@ -1,182 +1,166 @@
 const { create, all } = require("mathjs");
 
-// membuat instance mathjs tanpa override fungsi bawaan
+// membuat instance mathjs untuk menghitung formula
 const math = create(all, {
-	number: "number", // hasil berupa number JS biasa (bukan BigNumber)
-	precision: 64,
+    number: "number",
+    precision: 64,
 });
 
+// random integer biasa
 const randomInt = (min, max) =>
-	Math.floor(Math.random() * (max - min + 1)) + min;
+    Math.floor(Math.random() * (max - min + 1)) + min;
 
-// Fisher–Yates shuffle
-function shuffle(array) {
-	for (let i = array.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[array[i], array[j]] = [array[j], array[i]];
-	}
-	return array;
-}
+// operator yang diperbolehkan
+const OPERATOR_LIST = ["+", "-", "*", "/"];
 
-const OPERATOR_LIST = ["+", "-", "*", "/", "%"];
-
-// Semua konstanta yang bisa digunakan dalam template
-const CONSTANT_MAP = {
-	pi: Math.PI,
-	phi: (1 + Math.sqrt(5)) / 2,
-	e: Math.E,
-	sqrt2: Math.SQRT2,
-	sqrt3: Math.sqrt(3),
-	half: 1 / 2,
-	quarter: 1 / 4,
-};
-
+// ambil semua placeholder {a}, {b}, {opt1}, dll
 function extractPlaceholders(content) {
-	return content.match(/{(.*?)}/g) || [];
+    return content.match(/{(.*?)}/g) || [];
 }
 
+// generate nilai random untuk setiap placeholder
 function generateValueForKey(key) {
-	if (key.includes("opt")) {
-		return OPERATOR_LIST[randomInt(0, OPERATOR_LIST.length - 1)];
-	}
-	if (CONSTANT_MAP[key] !== undefined) {
-		return CONSTANT_MAP[key];
-	}
-	return randomInt(1, 25);
+    // placeholder operator
+    if (key.includes("opt")) {
+        return OPERATOR_LIST[randomInt(0, OPERATOR_LIST.length - 1)];
+    }
+
+    // selain operator = angka integer saja
+    return randomInt(1, 25);
 }
 
+// mapping placeholder → value
 function generateValues(placeholders) {
-	const values = {};
-	placeholders.forEach((ph) => {
-		const key = ph.replace("{", "").replace("}", "");
-		values[key] = generateValueForKey(key);
-	});
-	return values;
+    const values = {};
+    placeholders.forEach((ph) => {
+        const key = ph.replace("{", "").replace("}", "");
+        values[key] = generateValueForKey(key);
+    });
+    return values;
 }
 
+// rakit formula jadi string matematika (tanpa konstanta)
 function buildExpression(formula, values) {
-	let expr = formula;
+    let expr = formula;
 
-	// Replace operator
-	for (const k in values) {
-		if (typeof values[k] === "string" && OPERATOR_LIST.includes(values[k])) {
-			expr = expr.replaceAll(k, values[k]);
-		}
-	}
+    // replace semua key dengan value-nya
+    for (const k in values) {
+        expr = expr.replaceAll(k, values[k]);
+    }
 
-	// Replace numbers & constants
-	for (const k in values) {
-		if (typeof values[k] === "number") {
-			expr = expr.replaceAll(k, values[k]);
-		}
-	}
-
-	// Replace global constants
-	for (const k in CONSTANT_MAP) {
-		expr = expr.replaceAll(k, CONSTANT_MAP[k]);
-	}
-
-	return expr;
+    return expr;
 }
 
+// evaluasi formula pakai mathjs
 function evalFormula(formula, values) {
-	const expr = buildExpression(formula, values);
+    const expr = buildExpression(formula, values);
 
-	try {
-		// gunakan math.evaluate() yang jauh lebih cepat & aman dibanding Function()
-		return math.evaluate(expr);
-	} catch (err) {
-		console.error("Formula Error:", formula, values, err);
-		return null;
-	}
+    try {
+        return math.evaluate(expr);
+    } catch (err) {
+        console.error("Formula Error:", formula, values, err);
+        return null;
+    }
 }
 
-function optionCountByLevel(level) {
-	return level === "easy" ? 3 : level === "medium" ? 4 : 5;
+// jumlah opsi semua level adalah 4
+function optionCount() {
+    return 4
 }
 
+// generate opsi jawaban
 function generateOptions(correct, count) {
-	const opts = new Set([correct]);
+    const opts = new Set([correct]);
 
-	while (opts.size < count) {
-		const noise = randomInt(-10, 10);
-		const wrong = correct + noise;
-		if (wrong !== correct && wrong >= 0) opts.add(wrong);
-	}
+    // generate angka mirip hasil (supaya tidak terlalu random jauh)
+    while (opts.size < count) {
+        const noise = randomInt(-10, 10);
+        const wrong = correct + noise;
+        if (wrong !== correct) opts.add(wrong);
+    }
 
-	return shuffle(
-		[...opts].map((v) => ({
-			content: Number.isInteger(v) ? v.toString() : v.toFixed(2),
-			is_correct: v === correct,
-			is_selected: false,
-		}))
-	);
+    // convert ke format opsi
+    const arr = [...opts].map((v) => ({
+        content: Number.isInteger(v) ? v.toString() : v.toFixed(2),
+        is_correct: v === correct,
+        is_selected: false,
+    }));
+
+    // shuffle Fisher-Yates
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+
+    return arr;
 }
 
+// distribusi template untuk 10 soal
 function distributeTemplates(templates) {
-	const total = 10;
-	const n = templates.length;
+    const total = 10;
+    const n = templates.length;
 
-	if (n >= 10) {
-		return templates
-			.sort(() => Math.random() - 0.5)
-			.slice(0, 10)
-			.map((t) => ({ tpl: t, count: 1 }));
-	}
+    if (n >= 10) {
+        return templates
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 10)
+            .map((t) => ({ tpl: t, count: 1 }));
+    }
 
-	const base = Math.floor(total / n);
-	const extra = total % n;
+    const base = Math.floor(total / n);
+    const extra = total % n;
 
-	return templates.map((tpl, i) => ({
-		tpl,
-		count: base + (i < extra ? 1 : 0),
-	}));
+    return templates.map((tpl, i) => ({
+        tpl,
+        count: base + (i < extra ? 1 : 0),
+    }));
 }
 
+// Fungsi Utama
 function generateHandler(templates) {
-	const distributed = distributeTemplates(templates);
-	const totalOptions = optionCountByLevel(templates[0].level);
+    const distributed = distributeTemplates(templates);
+    const totalOptions = optionCount();
 
-	const result = { questions: [] };
+    const result = { questions: [] };
 
-	for (const dist of distributed) {
-		for (let i = 0; i < dist.count; i++) {
-			const tpl = dist.tpl;
+    for (const dist of distributed) {
+        for (let i = 0; i < dist.count; i++) {
+            const tpl = dist.tpl;
 
-			const placeholders = extractPlaceholders(tpl.content);
-			const values = generateValues(placeholders);
+            const placeholders = extractPlaceholders(tpl.content);
+            const values = generateValues(placeholders);
 
-			// replace placeholder → value
-			let content = tpl.content;
-			for (const key in values) {
-				content = content.replaceAll(`{${key}}`, values[key]);
-			}
+            // replace placeholder → value
+            let content = tpl.content;
+            for (const key in values) {
+                content = content.replaceAll(`{${key}}`, values[key]);
+            }
 
-			// hitung jawaban benar
-			const correct = tpl.formula ? evalFormula(tpl.formula, values) : null;
+            // hitung jawaban
+            const correct = tpl.formula ? evalFormula(tpl.formula, values) : null;
 
-			// buat opsi
-			const options =
-				correct !== null
-					? generateOptions(correct, totalOptions)
-					: [
-							{ content: "-", is_correct: true, is_selected: false },
-							...Array(totalOptions - 1).fill({
-								content: "-",
-								is_correct: false,
-								is_selected: false,
-							}),
-					  ];
+            // generate opsi
+            const options =
+                correct !== null
+                    ? generateOptions(correct, totalOptions)
+                    : [
+                          { content: "-", is_correct: true, is_selected: false },
+                          ...Array(totalOptions - 1).fill({
+                              content: "-",
+                              is_correct: false,
+                              is_selected: false,
+                          }),
+                      ];
 
-			result.questions.push({
-				template_id: tpl.template_id,
-				content,
-				options,
-			});
-		}
-	}
+            result.questions.push({
+                template_id: tpl.template_id,
+                content,
+                options,
+            });
+        }
+    }
 
-	return result;
+    return result;
 }
 
 module.exports = generateHandler;
