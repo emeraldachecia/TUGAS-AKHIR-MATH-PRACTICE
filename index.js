@@ -12,13 +12,12 @@ const port = process.env.PORT || 3000;
 const sessionConfig = require("./configs/session.config");
 const router = require("./routes");
 
+
 (async () => {
 	try {
 		// // Menyesuaikan tabel database dengan model terbaru
 		// await databaseSynchronizer(false, true);
 
-		// // Menghapus semua session di database agar memulai dari sesi yang bersih
-		// await clearSession();
 	} catch (error) {
 		console.error(error);
 		process.exit(1); // Jika terjadi error saat sinkronisasi atau pembersihan session, hentikan aplikasi
@@ -38,7 +37,7 @@ app.use(express.json()); // Mengizinkan Express memproses request dalam format J
 app.use(express.urlencoded({ extended: true })); // Mengizinkan parsing data dalam format URL-encoded
 
 // Menggunakan body-parser untuk mengatur batas ukuran request body agar tidak terlalu besar
-app.use(bodyParser.json({ limit: "50mb" })); // Membatasi ukuran request body JSON maksimal 50MB
+app.use(bodyParser.json({ limit: "1mb" })); // Membatasi ukuran request body JSON maksimal 50MB
 
 app.use(sessionConfig);
 

@@ -7,13 +7,6 @@ const Connection = require("./database.config");
  */
 module.exports = session({
 	/**
-	 * Nama cookie yang digunakan untuk menyimpan session ID (sid).
-	 * Jika tidak ada environment variable SESSION_NAME, maka defaultnya adalah "connect.sid".
-	 * Menggunakan nama yang unik dapat meningkatkan keamanan dan menghindari konflik dengan aplikasi lain.
-	 */
-	name: process.env.SESSION_NAME || "connect.sid",
-
-	/**
 	 * Secret key yang digunakan untuk mengenkripsi session.
 	 * Session ini dienkripsi agar tidak bisa dibaca atau dimodifikasi oleh pengguna secara langsung.
 	 * Jika tidak ada environment variable SECRET_KEY, maka akan menggunakan nilai default "supersecret".

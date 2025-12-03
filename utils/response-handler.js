@@ -5,7 +5,6 @@ const responseHandler = (res, payload) => {
         status: codes[payload.code]?.status || null,
         message: codes[payload.code]?.message || null,
         data: payload.data || null,
-        meta: payload.meta || null,
         errors: payload.errors || null,
     });
 };

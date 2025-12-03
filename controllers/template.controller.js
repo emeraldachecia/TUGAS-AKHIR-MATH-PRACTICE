@@ -79,7 +79,6 @@ class TemplateController {
 			const result = await TemplateService.update(
 				req.body,
 				req.file,
-				req.session.user
 			);
 
 			responseHandler(res, {

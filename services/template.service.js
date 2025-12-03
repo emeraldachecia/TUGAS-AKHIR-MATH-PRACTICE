@@ -37,9 +37,7 @@ class TemplateService {
 			const createdRow = await TemplateRepository.create(data, dbTrx);
 
 			if (file) {
-				const newFileName = `${data.topic}-${data.level}-${
-					createdRow.template_id
-				}${path.extname(file.originalname)}`;
+				const newFileName = `${data.topic}-${data.level}-${createdRow.template_id}${path.extname(file.originalname)}`;
 				const targetPath = path.join("public/images/templates", newFileName);
 
 				// hapus jika sudah ada file dengan nama sama
@@ -62,7 +60,7 @@ class TemplateService {
 		}
 	}
 
-	async update(data, file, session) {
+	async update(data, image) {
 		let dbTrx;
 		try {
 			dbTrx = await Connection.transaction();
@@ -70,29 +68,24 @@ class TemplateService {
 			const existing = await TemplateRepository.findOne(
 				filterHandler({ template_id: data.template_id })
 			);
-
+			
 			if (!existing) {
 				throw Object.assign(new Error("Template not found."), { code: 404 });
 			}
 
-			if (file) {
-				const newFileName = `${data.topic || existing.topic}-${
-					data.level || existing.level
-				}-${data.template_id}${path.extname(file.originalname)}`;
-				const targetPath = path.join("public/images/templates", newFileName);
+			let newFileName, targetPath, remove_image;
 
-				// hapus jika sudah ada file dengan nama sama
-				if (fs.existsSync(targetPath)) fs.unlinkSync(targetPath);
-
-				// simpan gambar ke folder
-				fs.renameSync(file.path, targetPath);
+			if (image) {
+				newFileName = `${data.topic || existing.topic}-${data.level || existing.level
+					}-${data.template_id}${path.extname(image.originalname)}`;
+				
+				targetPath = path.join("public/images/templates", newFileName);
 
 				data.image = newFileName;
 			} else if (data.remove_image && existing.image) {
 				const targetPath = path.join("public/images/templates", existing.image);
 
-				// hapus file fisik jika ada
-				if (fs.existsSync(targetPath)) fs.unlinkSync(targetPath);
+				remove_image = data.remove_image;
 
 				// hapus attribute remove_image dari request body
 				delete data.remove_image;
@@ -102,6 +95,18 @@ class TemplateService {
 			}
 
 			const updatedRow = await TemplateRepository.update(data, dbTrx);
+
+			if (image) {
+				// hapus jika sudah ada file dengan nama sama
+				if (fs.existsSync(targetPath)) fs.unlinkSync(targetPath);
+
+				// memindahkan dari folder temp ke folder templates
+				fs.renameSync(image.path, targetPath);
+			
+			} else if (remove_image && existing.image) {
+				// hapus file fisik jika ada
+				if (fs.existsSync(targetPath)) fs.unlinkSync(targetPath);
+			}
 
 			await dbTrx.commit();
 

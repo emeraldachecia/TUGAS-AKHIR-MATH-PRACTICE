@@ -35,12 +35,7 @@ class UserService {
     }
 
 	async create(data, session) {
-		let dbTrx;
-
 		try {
-			// memulai transaksi database baru
-			dbTrx = await Connection.transaction();
-
 			// mencari user yang sudah ada di db berdasarkan email
 			const existing = await UserRepository.findOne(
 				// membuat filter pencarian berdasarkan email
@@ -59,15 +54,11 @@ class UserService {
 			data.password = passwordHandler.encrypt(data.password);
 
 			// simpan data user baru dalam transaksi
-			const createdRow = await UserRepository.create(data, dbTrx);
-
-			// commit transaksi karena semua proses berhasil
-			await dbTrx.commit();
+			const createdRow = await UserRepository.create(data);
 
 			// mengembalikan data user yang sudah berhasil dibuat
 			return createdRow;
 		} catch (error) {
-			if (dbTrx) await dbTrx.rollback();
 			throw error;
 		}
 	}
@@ -161,17 +152,11 @@ class UserService {
 
 			// jika user menghapus dirinya sendiri
 			if (data.id === session.user_id) {
-				// commit transaksi setelah berhasil dihapus
-				await dbTrx.commit();
-				
 				// panggil fungsi signout agar langsung keluar
 				await this.signout(req, res);
-
-				// mengembalikan true jika berhasil, dan false jika tidak berhasil
-				return deletedCount > 0 ? true : false;
 			}
 
-			// jika bukan delet diri sendiri, commit transaksi biasa
+			// jika bukan delete diri sendiri, commit transaksi biasa
 			await dbTrx.commit();
 
 			// kembalikan true jika berhasil delete
@@ -189,8 +174,6 @@ class UserService {
 			const existing = await UserRepository.findOne(
 				filterHandler({ email: data.email })
 			);
-
-			console.log(data);
 
 			// jika user tidak ditemukan, lempar error 404
 			if (!existing) {
