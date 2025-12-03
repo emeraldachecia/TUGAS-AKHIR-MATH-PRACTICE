@@ -2,7 +2,9 @@ const ExerciseRepository = require("../repositories/exercise.repository");
 const Connection = require("../configs/database.config");
 const { filterHandler } = require("../utils/filter-handler");
 const TemplateRepository = require("../repositories/template.repository");
-const generatePool = require("../utils/generator/generate-pool");
+// const generatePool = require("../utils/generator/generate-pool");
+
+const generator = require("../utils/generator/generate");
 
 class ExerciseService {
     async find(data, type, session) {
@@ -68,12 +70,11 @@ class ExerciseService {
 		}
     }
     
-    async create(data, session) {
+	async create(data, session) {
 		let dbTrx;
 		try {
 			dbTrx = await Connection.transaction();
 
-            // mengecek apakah user sudah punya exercise aktif sebelumnya
 			const existing = await ExerciseRepository.findActive(
 				filterHandler({
 					user_id: session.user_id,
@@ -81,51 +82,48 @@ class ExerciseService {
 				})
 			);
 
-            // jika masih ditemukan exercise yang aktif, maka lempar error conflict
 			if (existing) {
 				throw Object.assign(new Error("You already have an active exercise."), {
 					code: 409,
 				});
 			}
 
-            // mengambil kumpulan template soal berdasarkan topik dan level
 			const templates = await TemplateRepository.findMany(
 				filterHandler({ topic: data.topic, level: data.level })
 			);
 
-            // jika tidak ada template sama sekali
-            if (!templates || templates.length === 0) {
-                // lempar error
+			if (!templates || templates.length === 0) {
 				throw Object.assign(
 					new Error("No templates found for the selected topic and level."),
 					{ code: 404 }
 				);
 			}
 
-            // mengirim template ke worker pool untuk digenerate (acak soal dan opsi)
-			const generated = await generatePool.runTask(templates);
+			const questions = generator(templates);
 
-            // menambahkan metadata untuk exercise baru
-			generated.user_id = session.user_id;
-			generated.start_time = Date.now();
-			generated.end_time = null;
-			generated.status = "active";
-			generated.topic = data.topic;
-			generated.level = data.level;
 
-            // menyimpan exercise + pertanyaan + opsi ke db dalam 1 transaksi
-			const createdRow = await ExerciseRepository.create(generated, dbTrx);
+			// return questions
 
-            // commit transaksi karena semua berhasil
+			const exercise = {
+				user_id: session.user_id,
+				start_time: Date.now(),
+				end_time: null,
+				status: "active",
+				topic: data.topic,
+				level: data.level,
+				questions: questions,
+			};
+
+			const createdRow = await ExerciseRepository.create(exercise, dbTrx);
+
 			await dbTrx.commit();
 
-            // kembalikan data exercise baru
 			return createdRow;
 		} catch (error) {
 			if (dbTrx) await dbTrx.rollback();
 			throw error;
 		}
-    }
+	}
     
     async update(data, session) {
 		let dbTrx;
