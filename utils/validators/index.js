@@ -1,4 +1,4 @@
-const userSchema = require("./use r-schema");
+const userSchema = require("./user-schema");
 const exerciseSchema = require("./exercise-schema");
 const templateSchema = require("./template-schema");
 
