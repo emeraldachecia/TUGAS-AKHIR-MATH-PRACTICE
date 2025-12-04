@@ -5,11 +5,29 @@ const { TemplateModel } = require("../models");
 class TemplateRepository {
 	async findMany(filters) {
 		try {
-			return await TemplateModel.findAll({
+			const rows = await TemplateModel.findAll({
 				where: filters,
-				attributes: ["template_id", "content", "formula", "topic", "level"],
+				attributes: [
+					"template_id",
+					"content",
+					"formula",
+					"placeholders",
+					"topic",
+					"level",
+				],
 				raw: true,
 			});
+
+			const formatResult = (rows) => {
+				for (const row of rows) {
+					if (row.placeholders) {
+						row.placeholders = JSON.parse(row.placeholders);
+					}
+				}
+				return rows;
+			};
+
+			return formatResult(rows);
 		} catch (error) {
 			throw error;
 		}
@@ -17,10 +35,16 @@ class TemplateRepository {
 
 	async findOne(filters) {
 		try {
-			return await TemplateModel.findOne({
+			const row = await TemplateModel.findOne({
 				where: filters,
 				raw: true,
 			});
+
+			if (row && row?.placeholders) {
+				row.placeholders = JSON.parse(row.placeholders);
+			}
+
+			return row;
 		} catch (error) {
 			throw error;
 		}

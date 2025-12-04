@@ -4,7 +4,7 @@ const { filterHandler } = require("../utils/filter-handler");
 const TemplateRepository = require("../repositories/template.repository");
 // const generatePool = require("../utils/generator/generate-pool");
 
-const generator = require("../utils/generator/generate");
+const { generateQuestions } = require("../utils/generator");
 
 class ExerciseService {
     async find(data, type, session) {
@@ -98,11 +98,10 @@ class ExerciseService {
 					{ code: 404 }
 				);
 			}
-
-			const questions = generator(templates);
-
-
-			// return questions
+			
+			console.time("generate");
+			const questions = generateQuestions(templates);
+			console.timeEnd("generate");
 
 			const exercise = {
 				user_id: session.user_id,
@@ -114,7 +113,9 @@ class ExerciseService {
 				questions: questions,
 			};
 
+			console.time("query");
 			const createdRow = await ExerciseRepository.create(exercise, dbTrx);
+			console.timeEnd("query");
 
 			await dbTrx.commit();
 

@@ -5,6 +5,9 @@ const fs = require("fs");
 const path = require("path");
 const { filterHandler } = require("../utils/filter-handler");
 
+const { extractPlaceholders } = require("../utils/generator");
+const arrayComparison = require("../utils/array-comparison");
+
 class TemplateService {
 	async find(data, type) {
 		try {
@@ -33,6 +36,15 @@ class TemplateService {
 		let dbTrx;
 		try {
 			dbTrx = await Connection.transaction();
+
+			const contentPH = extractPlaceholders(data.content);
+			const formulaPH = extractPlaceholders(data.formula);
+
+			if (!arrayComparison(contentPH, formulaPH)) {
+				throw Object.assign(new Error("Placeholders mismatch!"), { code: 400 });
+			}
+
+			data.placeholders = JSON.stringify(formulaPH);
 
 			const createdRow = await TemplateRepository.create(data, dbTrx);
 
@@ -72,6 +84,17 @@ class TemplateService {
 			if (!existing) {
 				throw Object.assign(new Error("Template not found."), { code: 404 });
 			}
+			
+			const contentPH = extractPlaceholders(data.content || existing.content);
+			const formulaPH = extractPlaceholders(data.formula || existing.formula);
+
+			if (!arrayComparison(contentPH, formulaPH)) {
+				throw Object.assign(new Error("Placeholders mismatch!"), {
+					code: 400,
+				});
+			}
+
+			data.placeholders = JSON.stringify(formulaPH);
 
 			let newFileName, targetPath, remove_image;
 

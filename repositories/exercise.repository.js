@@ -1,4 +1,5 @@
 const Connection = require("../configs/database.config");
+const generateId = require("../utils/identifier-handler");
 const Sequelize = require("sequelize");
 const {
     ExerciseModel,
@@ -364,70 +365,86 @@ class ExerciseRepository {
 		}
     }
     
-    async create(data, dbTrxGlobal) {
+	async create(data, dbTrxGlobal) {
 		let dbTrx;
-        try {
-            // jika ada transaksi global, maka gunakan itu
-            // jika tidak ada maka buat transaksi baru
+
+		try {
 			dbTrx = dbTrxGlobal ? dbTrxGlobal : await Connection.transaction();
 
-            // insert ke tabel exercise untuk membuat latihan baru
-			const newXrc = await ExerciseModel.create(
+			const timestamp = Date.now();
+
+			// ============================
+			// 1. CREATE EXERCISE
+			// ============================
+			const exerciseId = generateId("xrc");
+
+			await ExerciseModel.create(
 				{
+					exercise_id: exerciseId,
 					user_id: data.user_id,
 					start_time: data.start_time,
 					end_time: data.end_time,
 					topic: data.topic,
 					level: data.level,
 					status: data.status,
-                },
-                // semua operasi wajib dalam transaksi
+				},
 				{ transaction: dbTrx }
 			);
 
-            // loop setiap soal yang dikirim
-            for (const question of data.questions) {
-                // insert ke tabel question
-				const newQst = await QuestionModel.create(
-					{
-						exercise_id: newXrc.exercise_id,
-						template_id: question.template_id,
-						content: question.content,
-					},
-					{ transaction: dbTrx }
-				);
+			// ============================
+			// 2. PREPARE BULK QUESTIONS
+			// ============================
+			const questionRows = [];
+			const optionRows = [];
 
-                // loop setiap opsi jawaban dari soal
-                for (const option of question.options) {
-                    // insert ke tabel option
-					await OptionModel.create(
-						{
-							question_id: newQst.question_id,
-							content: option.content,
-							is_selected: option.is_selected,
-							is_correct: option.is_correct,
-						},
-						{ transaction: dbTrx }
-					);
+			for (const question of data.questions) {
+				const questionId = generateId("qst");
+
+				questionRows.push({
+					question_id: questionId,
+					exercise_id: exerciseId,
+					template_id: question.template_id,
+					content: question.content,
+					timestamp: timestamp,
+				});
+
+				// ============================
+				// 3. PREPARE BULK OPTIONS
+				// ============================
+				for (const option of question.options) {
+					optionRows.push({
+						option_id: generateId("opt"),
+						question_id: questionId,
+						content: option.content,
+						is_selected: false,
+						is_correct: option.is_correct,
+						timestamp: timestamp,
+					});
 				}
 			}
 
-            // kalau transaksi lokal, lakukan commit
+			// ============================
+			// 4. BULK INSERT QUESTIONS
+			// ============================
+			await QuestionModel.bulkCreate(questionRows, {
+				transaction: dbTrx,
+			});
+
+			// ============================
+			// 5. BULK INSERT OPTIONS
+			// ============================
+			await OptionModel.bulkCreate(optionRows, {
+				transaction: dbTrx,
+			});
+
 			if (!dbTrxGlobal) await dbTrx.commit();
 
-            // return data exercise baru yang dibuat
-			return newXrc;
+			return { exercise_id: exerciseId };
 		} catch (error) {
 			if (dbTrx && !dbTrxGlobal) await dbTrx.rollback();
-
-            // jika error karena ada duplikat, lempar error dengan kode 400
-			if (error instanceof Sequelize.UniqueConstraintError) {
-				throw Object.assign(new Error(error.errors[0].message), { code: 400 });
-			}
-
 			throw error;
 		}
-    }
+	}
     
     async update(data, dbTrxGlobal) {
 		let dbTrx;

@@ -17,6 +17,10 @@ const TemplateModel = Connection.define(
 			type: DataTypes.STRING(200),
 			allowNull: false,
 		},
+		placeholders: {
+			type: DataTypes.STRING(200),
+			allowNull: false,
+		},
 		image: {
 			type: DataTypes.STRING(200),
 			allowNull: true,
