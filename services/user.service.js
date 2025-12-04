@@ -1,7 +1,15 @@
 const UserRepository = require("../repositories/user.repository");
+const ExerciseRepository = require("../repositories/exercise.repository");
 const passwordHandler = require("../utils/password-handler");
 const Connection = require("../configs/database.config");
 const { filterHandler } = require("../utils/filter-handler");
+const {
+    ExerciseModel,
+    QuestionModel,
+    OptionModel,
+    UserModel,
+    TemplateModel,
+} = require("../models");
 
 class UserService {
     async find(data, type) {
@@ -221,10 +229,209 @@ class UserService {
 					// menghapus cookie session dari browser
 					res.clearCookie(process.env.SESSION_NAME || "connect.sid");
 
-					// kirim pesan suskses jika berhasil
+					// kirim pesan sukses jika berhasil
 					resolve({ message: "Signout successful." });
 				});
 			});
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	async adminDashboard() {
+		try {
+			const totalTemplates = await TemplateModel.count();
+			const users = await UserModel.findAll({ raw: true });
+			const exercises = await ExerciseModel.findAll({
+				include: [
+					{
+						model: QuestionModel,
+						as: "questions",
+						include: [
+							{
+								model: OptionModel,
+								as: "options",
+							},
+						],
+					},
+				],
+			});
+
+			// hitung score tiap exercise
+			const exerciseScoreList = exercises.map((ex) => {
+				let correct = 0;
+				const totalQ = ex.questions.length;
+
+				for (const q of ex.questions) {
+					const ok = q.options.some((o) => o.is_selected && o.is_correct);
+					if (ok) correct++;
+				}
+
+				return {
+					user_id: ex.user_id,
+					score: totalQ > 0 ? Math.round((correct / totalQ) * 100) : 0,
+				};
+			});
+
+			// hitung total score per user
+			const totalScoreMap = new Map(); // user_id → total_score
+
+			for (const row of exerciseScoreList) {
+				if (!totalScoreMap.has(row.user_id)) totalScoreMap.set(row.user_id, 0);
+				totalScoreMap.set(
+					row.user_id,
+					totalScoreMap.get(row.user_id) + row.score
+				);
+			}
+
+			// konvert Map → array
+			const totalScoresList = [...totalScoreMap.values()];
+
+			// rata-rata semua score user
+			const avgScoreAll =
+				totalScoresList.length > 0
+					? Math.round(
+							totalScoresList.reduce((a, b) => a + b, 0) /
+								totalScoresList.length
+					  )
+					: 0;
+
+			// top 10 berdasarkan total score
+			const rawTop = [...totalScoreMap.entries()]
+				.map(([user_id, total_score]) => ({ user_id, total_score }))
+				.sort((a, b) => b.total_score - a.total_score)
+				.slice(0, 10);
+
+			const topUserIds = rawTop.map((t) => t.user_id);
+
+			const topUsersDb = await UserModel.findAll({
+				where: { user_id: topUserIds },
+				raw: true,
+			});
+
+			const top10 = rawTop.map((entry) => {
+				const u = topUsersDb.find((x) => x.user_id === entry.user_id);
+				return {
+					student_id: entry.user_id,
+					name: u ? u.name : "(unknown)",
+					total_score: entry.total_score,
+				};
+			});
+
+			return {
+				total_users: users.length,
+				total_templates: totalTemplates,
+				total_exercises: exercises.length,
+				avg_score_all: avgScoreAll, // ✔ avg total score antar user
+				top10,
+			};
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	}
+
+	async studentDashboard(session) {
+		try {
+			const formatResult = (rows) => {
+				// menghitung skor setiap exercise
+				const scores = rows.map((ex) => {
+					let correct = 0;
+					const totalQ = ex.questions.length;
+
+					for (const q of ex.questions) {
+						const ok = q.options.some((o) => o.is_selected && o.is_correct);
+						if (ok) correct++;
+					}
+
+					return totalQ > 0 ? Math.round((correct / totalQ) * 100) : 0;
+				});
+
+				// total exercise yang dikerjakan
+				const calculateTotal = (topic, level) => {
+					return rows.filter((ex) => {
+						if (topic && ex.topic !== topic) return false;
+						if (level && ex.level !== level) return false;
+						return true;
+					}).length;
+				};
+
+				// total score yang diperoleh
+				const calculateSumScore = (topic, level) => {
+					let sum = 0;
+
+					rows.forEach((ex, i) => {
+						if (topic && ex.topic !== topic) return;
+						if (level && ex.level !== level) return;
+						sum += scores[i];
+					});
+
+					return sum;
+				};
+
+				// rata-rata score yang didapat
+				const calculateAvg = (topic, level) => {
+					const total = calculateTotal(topic, level);
+					if (total === 0) return 0;
+
+					const sum = calculateSumScore(topic, level);
+					return Math.round(sum / total);
+				};
+
+				return {
+					overall: {
+						total_exercise: calculateTotal(),
+						total_score: calculateSumScore(),
+						average_score: calculateAvg(),
+					},
+					arithmetic: {
+						total_exercise: calculateTotal("arithmetic"),
+						total_score: calculateSumScore("arithmetic"),
+						average_score: calculateAvg("arithmetic"),
+
+						easy: {
+							total_exercise: calculateTotal("arithmetic", "easy"),
+							total_score: calculateSumScore("arithmetic", "easy"),
+							average_score: calculateAvg("arithmetic", "easy"),
+						},
+						medium: {
+							total_exercise: calculateTotal("arithmetic", "medium"),
+							total_score: calculateSumScore("arithmetic", "medium"),
+							average_score: calculateAvg("arithmetic", "medium"),
+						},
+						hard: {
+							total_exercise: calculateTotal("arithmetic", "hard"),
+							total_score: calculateSumScore("arithmetic", "hard"),
+							average_score: calculateAvg("arithmetic", "hard"),
+						},
+					},
+					geometry: {
+						total_exercise: calculateTotal("geometry"),
+						total_score: calculateSumScore("geometry"),
+						average_score: calculateAvg("geometry"),
+
+						easy: {
+							total_exercise: calculateTotal("geometry", "easy"),
+							total_score: calculateSumScore("geometry", "easy"),
+							average_score: calculateAvg("geometry", "easy"),
+						},
+						medium: {
+							total_exercise: calculateTotal("geometry", "medium"),
+							total_score: calculateSumScore("geometry", "medium"),
+							average_score: calculateAvg("geometry", "medium"),
+						},
+						hard: {
+							total_exercise: calculateTotal("geometry", "hard"),
+							total_score: calculateSumScore("geometry", "hard"),
+							average_score: calculateAvg("geometry", "hard"),
+						},
+					},
+				};
+			};
+
+			const exercises = await ExerciseRepository.getDashboard(session.user_id);
+
+			return formatResult(exercises);
 		} catch (error) {
 			throw error;
 		}

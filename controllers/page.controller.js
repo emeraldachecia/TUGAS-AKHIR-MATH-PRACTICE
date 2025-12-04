@@ -1,5 +1,5 @@
-const exerciseRepository = require("../repositories/exercise.repository");
 const responseHandler = require("../utils/response-handler");
+const UserService = require("../services/user.service");
 
 class PageController {
 	// HOME PAGE
@@ -67,7 +67,6 @@ class PageController {
 			};
 
 			const role = req.session.user.role;
-			const userId = req.session.user.user_id;
 
 			res.render("pages/dashboard", {
 				title: "Dashboard",
@@ -76,8 +75,8 @@ class PageController {
 				user: req.session.user,
 				data:
 					role === "admin"
-						? dataAdmin
-						: await exerciseRepository.getDashboard(userId),
+						? await UserService.adminDashboard()
+						: await UserService.studentDashboard(req.session.user),
 			});
 		} catch (error) {
 			responseHandler(res, {

@@ -31,101 +31,7 @@ class ExerciseRepository {
 				],
 			});
 
-			const formatResult = (rows) => {
-				// menghitung skor setiap exercise
-				const scores = rows.map((ex) => {
-					let correct = 0;
-					const totalQ = ex.questions.length;
-
-					for (const q of ex.questions) {
-						const ok = q.options.some((o) => o.is_selected && o.is_correct);
-						if (ok) correct++;
-					}
-
-					return totalQ > 0 ? Math.round((correct / totalQ) * 100) : 0;
-				});
-
-				// total latihan
-				const calculateTotal = (topic, level) => {
-					return rows.filter((ex) => {
-						if (topic && ex.topic !== topic) return false;
-						if (level && ex.level !== level) return false;
-						return true;
-					}).length;
-				};
-
-				const calculateSumScore = (topic, level) => {
-					let sum = 0;
-
-					rows.forEach((ex, i) => {
-						if (topic && ex.topic !== topic) return;
-						if (level && ex.level !== level) return;
-						sum += scores[i];
-					});
-
-					return sum;
-				};
-
-				const calculateAvg = (topic, level) => {
-					const total = calculateTotal(topic, level);
-					if (total === 0) return 0;
-
-					const sum = calculateSumScore(topic, level);
-					return Math.round(sum / total);
-				};
-
-				return {
-					overall: {
-						total_exercise: calculateTotal(),
-						total_score: calculateSumScore(),
-						average_score: calculateAvg(),
-					},
-					arithmetic: {
-						total_exercise: calculateTotal("arithmetic"),
-						total_score: calculateSumScore("arithmetic"),
-						average_score: calculateAvg("arithmetic"),
-
-						easy: {
-							total_exercise: calculateTotal("arithmetic", "easy"),
-							total_score: calculateSumScore("arithmetic", "easy"),
-							average_score: calculateAvg("arithmetic", "easy"),
-						},
-						medium: {
-							total_exercise: calculateTotal("arithmetic", "medium"),
-							total_score: calculateSumScore("arithmetic", "medium"),
-							average_score: calculateAvg("arithmetic", "medium"),
-						},
-						hard: {
-							total_exercise: calculateTotal("arithmetic", "hard"),
-							total_score: calculateSumScore("arithmetic", "hard"),
-							average_score: calculateAvg("arithmetic", "hard"),
-						},
-					},
-					geometry: {
-						total_exercise: calculateTotal("geometry"),
-						total_score: calculateSumScore("geometry"),
-						average_score: calculateAvg("geometry"),
-
-						easy: {
-							total_exercise: calculateTotal("geometry", "easy"),
-							total_score: calculateSumScore("geometry", "easy"),
-							average_score: calculateAvg("geometry", "easy"),
-						},
-						medium: {
-							total_exercise: calculateTotal("geometry", "medium"),
-							total_score: calculateSumScore("geometry", "medium"),
-							average_score: calculateAvg("geometry", "medium"),
-						},
-						hard: {
-							total_exercise: calculateTotal("geometry", "hard"),
-							total_score: calculateSumScore("geometry", "hard"),
-							average_score: calculateAvg("geometry", "hard"),
-						},
-					},
-				};
-			};
-
-			return formatResult(rows);
+			return rows;
 		} catch (error) {
 			throw error;
 		}
@@ -369,15 +275,16 @@ class ExerciseRepository {
 		let dbTrx;
 
 		try {
+			// jika ada transaksi global, gunakan itu
+			// jika tidak, buat transaksi baru
 			dbTrx = dbTrxGlobal ? dbTrxGlobal : await Connection.transaction();
 
 			const timestamp = Date.now();
 
-			// ============================
-			// 1. CREATE EXERCISE
-			// ============================
+			// generate id unik untuk exercise
 			const exerciseId = generateId("xrc");
 
+			// insert 1 baris exercise ke db
 			await ExerciseModel.create(
 				{
 					exercise_id: exerciseId,
@@ -391,15 +298,17 @@ class ExerciseRepository {
 				{ transaction: dbTrx }
 			);
 
-			// ============================
-			// 2. PREPARE BULK QUESTIONS
-			// ============================
+			// array untuk menampung semua data pertanyaan
+			// dan opsi sekaligus
 			const questionRows = [];
 			const optionRows = [];
 
+			// seluruh pertanyaan yang dikirim dari front end
 			for (const question of data.questions) {
+				// buat ID untuk pertanyaan
 				const questionId = generateId("qst");
 
+				// memasukkan data pertanyaan ke array
 				questionRows.push({
 					question_id: questionId,
 					exercise_id: exerciseId,
@@ -408,10 +317,9 @@ class ExerciseRepository {
 					timestamp: timestamp,
 				});
 
-				// ============================
-				// 3. PREPARE BULK OPTIONS
-				// ============================
+				// untuk semua opsi pada pertanyaan
 				for (const option of question.options) {
+					// simpan semua opsi dalam array
 					optionRows.push({
 						option_id: generateId("opt"),
 						question_id: questionId,
@@ -423,16 +331,12 @@ class ExerciseRepository {
 				}
 			}
 
-			// ============================
-			// 4. BULK INSERT QUESTIONS
-			// ============================
+			// insert semua pertanyaan sekaligus ke database
 			await QuestionModel.bulkCreate(questionRows, {
 				transaction: dbTrx,
 			});
 
-			// ============================
-			// 5. BULK INSERT OPTIONS
-			// ============================
+			// insert semua opsi pertanyaan sekaligus
 			await OptionModel.bulkCreate(optionRows, {
 				transaction: dbTrx,
 			});
