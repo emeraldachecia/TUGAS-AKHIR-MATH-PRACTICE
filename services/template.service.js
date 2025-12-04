@@ -37,13 +37,18 @@ class TemplateService {
 		try {
 			dbTrx = await Connection.transaction();
 
+			// mengambil placeholder dari isi soal
 			const contentPH = extractPlaceholders(data.content);
+
+			// mengambil placeholder dari formula jawaban
 			const formulaPH = extractPlaceholders(data.formula);
 
+			// cek apakah kedua array punya isi yang sama
 			if (!arrayComparison(contentPH, formulaPH)) {
 				throw Object.assign(new Error("Placeholders mismatch!"), { code: 400 });
 			}
 
+			// simpan array ke db dalam bentuk JSON
 			data.placeholders = JSON.stringify(formulaPH);
 
 			const createdRow = await TemplateRepository.create(data, dbTrx);
@@ -85,9 +90,12 @@ class TemplateService {
 				throw Object.assign(new Error("Template not found."), { code: 404 });
 			}
 			
+			// jika user mengirim content dan formula baru, ambil yang baru
+			// jika tidak, pakai yang lama
 			const contentPH = extractPlaceholders(data.content || existing.content);
 			const formulaPH = extractPlaceholders(data.formula || existing.formula);
 
+			// membandingkan placeholder content dan formula
 			if (!arrayComparison(contentPH, formulaPH)) {
 				throw Object.assign(new Error("Placeholders mismatch!"), {
 					code: 400,

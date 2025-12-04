@@ -2,8 +2,6 @@ const ExerciseRepository = require("../repositories/exercise.repository");
 const Connection = require("../configs/database.config");
 const { filterHandler } = require("../utils/filter-handler");
 const TemplateRepository = require("../repositories/template.repository");
-// const generatePool = require("../utils/generator/generate-pool");
-
 const { generateQuestions } = require("../utils/generator");
 
 class ExerciseService {
