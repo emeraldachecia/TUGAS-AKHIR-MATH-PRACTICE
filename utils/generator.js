@@ -64,7 +64,7 @@ function generatePlaceholderValues(placeholders) {
     // object hasil
 	const result = {};
 
-    // untuk semua placaholders
+    // untuk semua placeholders
     for (const ph of placeholders) {
         // simpan nilai randomnya
 		result[ph] = generateValueForPlaceholder(ph);
