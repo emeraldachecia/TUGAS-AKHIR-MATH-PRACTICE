@@ -18,21 +18,17 @@
   "homepage": "https://github.com/emeraldachecia/TUGAS-AKHIR-MATH-PRACTICE#readme",
   "dependencies": {
     "connect-session-sequelize": "^7.1.7",
-    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.18.2",
     "fs": "^0.0.1-security",
-    "jio": "^3.45.0",
     "joi": "^18.0.1",
-    "mathjs": "^15.1.0",
     "multer": "^2.0.2",
     "mysql2": "^3.15.3",
     "nodemon": "^3.1.11",
     "sequelize": "^6.37.7",
-    "uuid": "^11.0.5",
-    "worker": "^0.4.0"
+    "uuid": "^11.0.5"
   }
 }
