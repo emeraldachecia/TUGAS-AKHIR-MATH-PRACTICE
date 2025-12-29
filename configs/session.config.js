@@ -69,38 +69,4 @@ module.exports = session({
 		 */
 		checkExpirationInterval: 15 * 60 * 1000, // 15 menit = 900000 ms
 	}),
-
-	/**
-	 * Konfigurasi cookie yang digunakan untuk menyimpan session ID di browser pengguna.
-	 */
-	cookie: {
-		/**
-		 * Mencegah JavaScript di browser membaca cookie untuk menghindari serangan XSS (Cross-Site Scripting).
-		 * - true  -> Cookie hanya dapat diakses oleh server dan tidak bisa dibaca oleh JavaScript di browser.
-		 * - false -> Cookie dapat diakses oleh JavaScript di browser, berisiko terhadap serangan XSS.
-		 */
-		httpOnly: true,
-
-		/**
-		 * Mengaktifkan cookie hanya saat menggunakan HTTPS.
-		 * Jika aplikasi berjalan dalam mode production, maka cookie hanya dikirim jika menggunakan HTTPS.
-		 * - true  -> Cookie hanya dikirim melalui koneksi HTTPS (direkomendasikan untuk production).
-		 * - false -> Cookie bisa dikirim melalui HTTP maupun HTTPS (bisa berbahaya jika digunakan di production).
-		 */
-		secure: process.env.NODE_ENV === "production",
-
-		/**
-		 * Waktu kedaluwarsa cookie.
-		 * Dalam hal ini, cookie akan otomatis kedaluwarsa setelah 24 jam = 86400000 ms
-		 */
-		maxAge: 24 * 60 * 60 * 1000,
-
-		/**
-		 * Mengontrol kapan cookie akan dikirim dalam permintaan lintas situs (CSRF protection).
-		 * - "strict" -> Cookie hanya dikirim untuk request dari domain yang sama (keamanan maksimal, mencegah CSRF).
-		 * - "lax"    -> Cookie dikirim dalam request lintas situs jika ada interaksi user (cukup aman, masih melindungi dari CSRF).
-		 * - "none"   -> Cookie dikirim dalam semua request (tidak direkomendasikan karena rentan terhadap serangan CSRF).
-		 */
-		sameSite: "strict",
-	},
 });
