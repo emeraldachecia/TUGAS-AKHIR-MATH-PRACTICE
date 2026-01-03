@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	const signinForm = document.getElementById("signin-form");
 	const signupForm = document.getElementById("signup-form");
 
-	// ================= Toggle SignIn / SignUp =================
 	showSignup?.addEventListener("click", (e) => {
 		e.preventDefault();
 		signinCard.classList.add("hidden");
@@ -20,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		signinCard.classList.remove("hidden");
 	});
 
-	// ================= Sign In Handler =================
 	signinForm?.addEventListener("submit", async (e) => {
 		e.preventDefault();
 

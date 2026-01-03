@@ -10,7 +10,7 @@ const {
     UserModel,
     TemplateModel,
 } = require("../models");
-
+ 
 class UserService {
     async find(data, type) {
 		try {

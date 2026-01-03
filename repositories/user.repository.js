@@ -1,7 +1,7 @@
 const Connection = require("../configs/database.config");
 const Sequelize = require("sequelize");
 const { UserModel } = require("../models");
-
+ 
 class UserRepository {
 
     async findMany(filters) {
@@ -42,7 +42,7 @@ class UserRepository {
                 where: { email: email },
             });
         } catch (error) {
-            throw error;
+            throw error; 
         }
     }
 

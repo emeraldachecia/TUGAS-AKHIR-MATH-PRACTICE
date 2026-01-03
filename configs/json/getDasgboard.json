@@ -1,0 +1,19 @@
+[
+    {
+        "exercise_id": "",
+        "topic": "",
+        "level": "",
+        "questions": [
+            {
+                "question_id": "",
+                "options": [
+                    {
+                        "option_id":"",
+                        "is_correct": "",
+                        "is_selected": ""
+                    }
+                ]
+            }
+        ]
+    }
+]

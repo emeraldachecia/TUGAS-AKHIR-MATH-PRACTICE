@@ -23,6 +23,8 @@ class TemplateRepository {
 					if (row.placeholders) {
 						row.placeholders = JSON.parse(row.placeholders);
 					}
+
+					// row.placeholders = JSON.parse(row.placeholders);
 				}
 				return rows;
 			};
@@ -44,6 +46,10 @@ class TemplateRepository {
 				row.placeholders = JSON.parse(row.placeholders);
 			}
 
+			// if (row) {
+			// 	row.placeholders = JSON.parse(row.placeholders);
+			// }
+
 			return row;
 		} catch (error) {
 			throw error;
@@ -64,7 +70,11 @@ class TemplateRepository {
 			if (dbTrx && !dbTrxGlobal) await dbTrx.rollback();
 
 			if (error instanceof Sequelize.UniqueConstraintError) {
-				throw Object.assign(new Error(error.errors[0].message), { code: 400 });
+				// throw Object.assign(new Error(error.errors[0].message), { code: 400 });
+
+				const err = new Error(error.errors[0].message)
+				err.code = 400
+				throw err
 			}
 
 			throw error;

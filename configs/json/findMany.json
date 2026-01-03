@@ -1,0 +1,52 @@
+[
+    {
+        "exercise_id": "",
+        "start_time": "",
+        "topic": "",
+        "level": "",
+        "status": "",
+        "questions": [
+            {
+                "question_id": "",
+                "exercise_id": "",
+                "template_id":"",
+                "content": "",
+                "timestamp": "",
+                "options": [
+                    {
+                        "option_id": "",
+                        "question_id":"",
+                        "content": "",
+                        "is_selected": "",
+                        "is_correct": "",
+                        "timestamp": ""
+                    },
+                    {
+                        "option_id": "",
+                        "question_id":"",
+                        "content": "",
+                        "is_selected": "",
+                        "is_correct": "",
+                        "timestamp": ""
+                    },
+                    {
+                        "option_id": "",
+                        "question_id":"",
+                        "content": "",
+                        "is_selected": "",
+                        "is_correct": "",
+                        "timestamp": ""
+                    },
+                    {
+                        "option_id": "",
+                        "question_id":"",
+                        "content": "",
+                        "is_selected": "",
+                        "is_correct": "",
+                        "timestamp": ""
+                    }
+                ]
+            }
+        ]
+    }
+]
