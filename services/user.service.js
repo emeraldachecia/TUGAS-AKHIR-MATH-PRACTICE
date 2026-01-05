@@ -159,7 +159,7 @@ class UserService {
 			const deletedCount = await UserRepository.delete(data.user_id, dbTrx);
 
 			// jika user menghapus dirinya sendiri
-			if (data.id === session.user_id) {
+			if (data.user_id === session.user_id) {
 				// panggil fungsi signout agar langsung keluar
 				await this.signout(req, res);
 			}
@@ -198,7 +198,7 @@ class UserService {
 				throw Object.assign(new Error("Invalid password."), { code: 401 });
 			}
 
-			// menyimpan data user ke session agar tetap login
+			// menyimpan data user ke session agar jadi login
 			req.session.user = {
 				user_id: existing.user_id,
 				name: existing.name,
@@ -274,17 +274,19 @@ class UserService {
 			});
 
 			// hitung total score per user
-			const totalScoreMap = new Map(); // user_id → total_score
+			const totalScoreMap = new Map();
 
 			for (const row of exerciseScoreList) {
 				if (!totalScoreMap.has(row.user_id)) totalScoreMap.set(row.user_id, 0);
+
+
 				totalScoreMap.set(
 					row.user_id,
 					totalScoreMap.get(row.user_id) + row.score
 				);
 			}
 
-			// konvert Map → array
+			// konvert Map jadi array
 			const totalScoresList = [...totalScoreMap.values()];
 
 			// rata-rata semua score user
@@ -322,7 +324,7 @@ class UserService {
 				total_users: users.length,
 				total_templates: totalTemplates,
 				total_exercises: exercises.length,
-				avg_score_all: avgScoreAll, // ✔ avg total score antar user
+				avg_score_all: avgScoreAll, // avg total score antar user
 				top10,
 			};
 		} catch (error) {

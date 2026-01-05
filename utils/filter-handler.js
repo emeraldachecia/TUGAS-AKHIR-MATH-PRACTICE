@@ -7,7 +7,7 @@ function filterHandler(condition = {}) {
     let filters = {};
     // array untuk menyimpan semua kondisi 'AND' yang digabungkan
     const andConditions = [];
-
+  
     // looping semua key yang ada di objek 'condition' sesuai yang dikirim user
     for (const key in condition) {
         // memastikan key adalah properti asli dari objek 'condition'
