@@ -3,56 +3,56 @@
         <div class="card template-detail-card">
             <!-- Header -->
             <div class="template-detail-header">
-                <h2>Template Detail</h2>
+                <h2>Detail Template</h2>
                 <button id="btnEdit" class="btn edit-btn inactive">Edit</button>
             </div>
 
             <form id="templateDetailForm" class="template-detail-form" enctype="multipart/form-data">
                 <!-- Content -->
                 <div class="form-group">
-                    <label for="content">Content</label>
-                    <textarea id="content" rows="4" placeholder="Template content..." disabled></textarea>
+                    <label for="content">Konten</label>
+                    <textarea id="content" rows="4" placeholder="Isi template..." disabled></textarea>
                 </div>
 
                 <!-- Formula -->
                 <div class="form-group">
-                    <label for="formula">Formula</label>
-                    <input type="text" id="formula" name="formula" placeholder="Enter formula expression..." disabled />
+                    <label for="formula">Rumus</label>
+                    <input type="text" id="formula" name="formula" placeholder="Masukkan ekspresi rumus..." disabled />
                 </div>
 
                 <!-- Topic -->
                 <div class="form-group">
-                    <label for="topic">Topic</label>
+                    <label for="topic">Topik</label>
                     <select id="topic" disabled>
-                        <option value="">-- Select Topic --</option>
-                        <option value="arithmetic">Arithmetic</option>
-                        <option value="geometry">Geometry</option>
+                        <option value="">-- Pilih Topik --</option>
+                        <option value="arithmetic">Aritmatika</option>
+                        <option value="geometry">Geometri</option>
                     </select>
                 </div>
 
                 <!-- Level -->
                 <div class="form-group">
-                    <label for="level">Level</label>
+                    <label for="level">Tingkat</label>
                     <select id="level" disabled>
-                        <option value="">-- Select Level --</option>
-                        <option value="easy">Easy</option>
-                        <option value="medium">Medium</option>
-                        <option value="hard">Hard</option>
+                        <option value="">-- Pilih Tingkat --</option>
+                        <option value="easy">Mudah</option>
+                        <option value="medium">Sedang</option>
+                        <option value="hard">Sulit</option>
                     </select>
                 </div>
 
                 <!-- Image -->
                 <div class="form-group image-group">
-                    <label for="image">Image</label>
+                    <label for="image">Gambar</label>
 
                     <div class="image-preview-container" id="imagePreviewContainer">
-                        <!-- Will be filled by JS -->
+                        <!-- Akan diisi oleh JavaScript -->
                     </div>
 
                     <input type="file" id="image" name="image" accept="image/*" class="image-input hidden" />
 
                     <button type="button" id="btnRemoveImage" class="btn remove-image-btn hidden">
-                        Remove Image
+                        Hapus Gambar
                     </button>
                 </div>
 
@@ -60,12 +60,12 @@
                 <div class="template-detail-actions">
                     <div class="left-actions">
                         <button type="button" id="btnDelete" class="btn delete-btn">
-                            Delete
+                            Hapus
                         </button>
                     </div>
                     <div class="right-actions">
                         <button type="submit" id="btnSave" class="btn save-btn hidden">
-                            Save
+                            Simpan
                         </button>
                     </div>
                 </div>

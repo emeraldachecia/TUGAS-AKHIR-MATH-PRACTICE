@@ -1,19 +1,16 @@
 <section class="profile">
     <div class="container profile-container">
         <div class="profile-card">
-            <!-- Header -->
             <div class="profile-header">
-                <h2>My Profile</h2>
+                <h2>Profil Saya</h2>
                 <button id="btnEdit" class="btn edit-btn inactive">Edit</button>
             </div>
 
-            <!-- Form -->
             <form id="profile-form" class="profile-form">
-                <!-- Hidden User ID -->
                 <input type="hidden" id="userId" name="userId" value="<%= user.user_id %>" />
 
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name">Nama</label>
                     <input type="text" id="name" name="name" placeholder="Name" value="<%= user.name %>" disabled />
                 </div>
 
@@ -23,18 +20,16 @@
                         disabled />
                 </div>
 
-                <!-- Password fields hidden until edit mode -->
                 <div class="form-group password-fields hidden">
-                    <label for="oldPassword">Old Password</label>
+                    <label for="oldPassword">Password Lama</label>
                     <input type="password" id="oldPassword" name="oldPassword" placeholder="Old Password" />
                 </div>
 
                 <div class="form-group password-fields hidden">
-                    <label for="newPassword">New Password</label>
+                    <label for="newPassword">Password Baru</label>
                     <input type="password" id="newPassword" name="newPassword" placeholder="New Password" />
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="profile-actions">
                     <button id="btnSignout" class="btn signout-btn" type="button">
                         Sign Out

@@ -11,27 +11,26 @@
     <!-- ====================== STUDENT DASHBOARD ======================= -->
     <% if (user.role==='student' ) { %>
         <section id="studentDashboard">
-            <!-- ========== CARD UTAMA 1 (OVERALL) ========== -->
             <div class="main-card main-card-overall">
-                <h2 class="main-card-title">Overall Performance</h2>
+                <h2 class="main-card-title">Performa Keseluruhan</h2>
 
                 <div class="overall-grid">
                     <div class="child-card">
-                        <span class="child-label">Total Exercises</span>
+                        <span class="child-label">Total Latihan</span>
                         <span class="child-number">
                             <%= data.overall.total_exercise %>
                         </span>
                     </div>
 
                     <div class="child-card">
-                        <span class="child-label">Average Score</span>
+                        <span class="child-label">Rata-rata Nilai</span>
                         <span class="child-number">
                             <%= data.overall.average_score %>
                         </span>
                     </div>
 
                     <div class="child-card">
-                        <span class="child-label">Total Score</span>
+                        <span class="child-label">Total Nilai</span>
                         <span class="child-number">
                             <%= data.overall.total_score %>
                         </span>
@@ -39,22 +38,20 @@
                 </div>
             </div>
 
-            <!-- ========== BARIS CARD UTAMA 2 & 3 ========== -->
             <div class="dashboard-row">
-                <!-- ========== CARD UTAMA 2 (ARITHMETIC) ========== -->
                 <div class="main-card main-card-topic">
-                    <h2 class="main-card-title">Arithmetic</h2>
+                    <h2 class="main-card-title">Aritmatika</h2>
 
                     <div class="topic-summary">
-                        <span>Total Exercises:
+                        <span>Total Latihan:
                             <strong>
                                 <%= data.arithmetic.total_exercise %>
                             </strong></span>
-                        <span>Total Score:
+                        <span>Total Nilai:
                             <strong>
                                 <%= data.arithmetic.total_score %>
                             </strong></span>
-                        <span>Average Score:
+                        <span>Rata-rata Nilai:
                             <strong>
                                 <%= data.arithmetic.average_score %>
                             </strong></span>
@@ -63,17 +60,17 @@
                     <div class="topic-levels">
                         <!-- EASY -->
                         <div class="level-card level-easy">
-                            <div class="level-title">Easy</div>
+                            <div class="level-title">Mudah</div>
                             <div class="level-content">
-                                <span>Total Exercises:
+                                <span>Total Latihan:
                                     <strong>
                                         <%= data.arithmetic.easy.total_exercise %>
                                     </strong></span>
-                                <span>Total Score:
+                                <span>Total Nilai:
                                     <strong>
                                         <%= data.arithmetic.easy.total_score %>
                                     </strong></span>
-                                <span>Average Score:
+                                <span>Rata-rata Nilai:
                                     <strong>
                                         <%= data.arithmetic.easy.average_score %>
                                     </strong></span>
@@ -82,17 +79,17 @@
 
                         <!-- MEDIUM -->
                         <div class="level-card level-medium">
-                            <div class="level-title">Medium</div>
+                            <div class="level-title">Sedang</div>
                             <div class="level-content">
-                                <span>Total Exercises:
+                                <span>Total Latihan:
                                     <strong>
                                         <%= data.arithmetic.medium.total_exercise %>
                                     </strong></span>
-                                <span>Total Score:
+                                <span>Total Nilai:
                                     <strong>
                                         <%= data.arithmetic.medium.total_score %>
                                     </strong></span>
-                                <span>Average Score:
+                                <span>Rata-rata Nilai:
                                     <strong>
                                         <%= data.arithmetic.medium.average_score %>
                                     </strong></span>
@@ -101,17 +98,17 @@
 
                         <!-- HARD -->
                         <div class="level-card level-hard">
-                            <div class="level-title">Hard</div>
+                            <div class="level-title">Sulit</div>
                             <div class="level-content">
-                                <span>Total Exercises:
+                                <span>Total Latihan:
                                     <strong>
                                         <%= data.arithmetic.hard.total_exercise %>
                                     </strong></span>
-                                <span>Total Score:
+                                <span>Total Nilai:
                                     <strong>
                                         <%= data.arithmetic.hard.total_score %>
                                     </strong></span>
-                                <span>Average Score:
+                                <span>Rata-rata Nilai:
                                     <strong>
                                         <%= data.arithmetic.hard.average_score %>
                                     </strong></span>
@@ -120,20 +117,19 @@
                     </div>
                 </div>
 
-                <!-- ========== CARD UTAMA 3 (GEOMETRY) ========== -->
                 <div class="main-card main-card-topic">
-                    <h2 class="main-card-title">Geometry</h2>
+                    <h2 class="main-card-title">Bangun Datar</h2>
 
                     <div class="topic-summary">
-                        <span>Total Exercises:
+                        <span>Total Latihan:
                             <strong>
                                 <%= data.geometry.total_exercise %>
                             </strong></span>
-                        <span>Total Score:
+                        <span>Total Nilai:
                             <strong>
                                 <%= data.geometry.total_score %>
                             </strong></span>
-                        <span>Average Score:
+                        <span>Rata-rata Nilai:
                             <strong>
                                 <%= data.geometry.average_score %>
                             </strong></span>
@@ -142,17 +138,17 @@
                     <div class="topic-levels">
                         <!-- EASY -->
                         <div class="level-card level-easy">
-                            <div class="level-title">Easy</div>
+                            <div class="level-title">Mudah</div>
                             <div class="level-content">
-                                <span>Total Exercises:
+                                <span>Total Latihan:
                                     <strong>
                                         <%= data.geometry.easy.total_exercise %>
                                     </strong></span>
-                                <span>Total Score:
+                                <span>Total Nilai:
                                     <strong>
                                         <%= data.geometry.easy.total_score %>
                                     </strong></span>
-                                <span>Average Score:
+                                <span>Rata-rata Nilai:
                                     <strong>
                                         <%= data.geometry.easy.average_score %>
                                     </strong></span>
@@ -161,17 +157,17 @@
 
                         <!-- MEDIUM -->
                         <div class="level-card level-medium">
-                            <div class="level-title">Medium</div>
+                            <div class="level-title">Sedang</div>
                             <div class="level-content">
-                                <span>Total Exercises:
+                                <span>Total Latihan:
                                     <strong>
                                         <%= data.geometry.medium.total_exercise %>
                                     </strong></span>
-                                <span>Total Score:
+                                <span>Total Nilai:
                                     <strong>
                                         <%= data.geometry.medium.total_score %>
                                     </strong></span>
-                                <span>Average Score:
+                                <span>Rata-rata Nilai:
                                     <strong>
                                         <%= data.geometry.medium.average_score %>
                                     </strong></span>
@@ -180,17 +176,17 @@
 
                         <!-- HARD -->
                         <div class="level-card level-hard">
-                            <div class="level-title">Hard</div>
+                            <div class="level-title">Sulit</div>
                             <div class="level-content">
-                                <span>Total Exercises:
+                                <span>Total Latihan:
                                     <strong>
                                         <%= data.geometry.hard.total_exercise %>
                                     </strong></span>
-                                <span>Total Score:
+                                <span>Total Nilai:
                                     <strong>
                                         <%= data.geometry.hard.total_score %>
                                     </strong></span>
-                                <span>Average Score:
+                                <span>Rata-rata Nilai:
                                     <strong>
                                         <%= data.geometry.hard.average_score %>
                                     </strong></span>
@@ -205,49 +201,50 @@
             <!-- ====================== ADMIN DASHBOARD ====================== -->
             <% if (user.role==='admin' ) { %>
                 <section id="adminDashboard">
-                    <h2 class="admin-title">Admin Statistics</h2>
+                    <h2 class="admin-title">Statistik Admin</h2>
 
                     <div class="admin-grid">
                         <div class="admin-card">
-                            <span class="admin-label">Total Users</span>
+                            <span class="admin-label">Total Pengguna</span>
                             <span class="admin-number">
                                 <%= data.total_users %>
                             </span>
                         </div>
 
                         <div class="admin-card">
-                            <span class="admin-label">Templates</span>
+                            <span class="admin-label">Template</span>
                             <span class="admin-number">
                                 <%= data.total_templates %>
                             </span>
                         </div>
 
                         <div class="admin-card">
-                            <span class="admin-label">Exercises Generated</span>
+                            <span class="admin-label">Latihan Dihasilkan</span>
                             <span class="admin-number">
                                 <%= data.total_exercises %>
                             </span>
                         </div>
 
                         <div class="admin-card">
-                            <span class="admin-label">Average Score</span>
+                            <span class="admin-label">Rata-rata Nilai</span>
                             <span class="admin-number">
                                 <%= data.avg_score_all %>
                             </span>
                         </div>
                     </div>
 
-                    <h3 class="top10-title">Top 10 Students</h3>
+                    <h3 class="top10-title">10 Mahasiswa Terbaik</h3>
                     <table class="top10-table">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Student</th>
-                                <th>Total Score</th>
+                                <th>Mahasiswa</th>
+                                <th>Total Nilai</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% if (data.top10 && data.top10.length> 0) { %> <% data.top10.forEach((s, i)=> { %>
+                            <% if (data.top10 && data.top10.length> 0) { %>
+                                <% data.top10.forEach((s, i)=> { %>
                                     <tr>
                                         <td>
                                             <%= i + 1 %>
@@ -262,7 +259,7 @@
                                     <% }) %>
                                         <% } else { %>
                                             <tr>
-                                                <td colspan="3">No data</td>
+                                                <td colspan="3">Tidak ada data</td>
                                             </tr>
                                             <% } %>
                         </tbody>

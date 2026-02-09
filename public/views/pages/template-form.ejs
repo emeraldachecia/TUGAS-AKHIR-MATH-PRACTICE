@@ -2,65 +2,65 @@
     <div class="container template-form-container">
         <div class="card template-form-card">
             <div class="template-form-header">
-                <h2>New Template</h2>
+                <h2>Template Baru</h2>
             </div>
 
             <form id="templateForm" class="template-form-body" enctype="multipart/form-data">
                 <!-- Content -->
                 <div class="form-group">
-                    <label for="content">Content <span class="required">*</span></label>
-                    <textarea id="content" name="content" rows="4" placeholder="Enter template content..."
+                    <label for="content">Konten <span class="required">*</span></label>
+                    <textarea id="content" name="content" rows="4" placeholder="Masukkan isi template..."
                         required></textarea>
                 </div>
 
                 <!-- Formula -->
                 <div class="form-group">
-                    <label for="formula">Formula</label>
-                    <input type="text" id="formula" name="formula" placeholder="Enter formula expression..." />
+                    <label for="formula">Rumus</label>
+                    <input type="text" id="formula" name="formula" placeholder="Masukkan ekspresi rumus..." />
                 </div>
 
                 <!-- Topic -->
                 <div class="form-group">
-                    <label for="topic">Topic <span class="required">*</span></label>
+                    <label for="topic">Topik <span class="required">*</span></label>
                     <select id="topic" name="topic" required>
-                        <option value="">-- Select Topic --</option>
-                        <option value="arithmetic">Arithmetic</option>
-                        <option value="geometry">Geometry</option>
+                        <option value="">-- Pilih Topik --</option>
+                        <option value="arithmetic">Aritmatika</option>
+                        <option value="geometry">Geometri</option>
                     </select>
                 </div>
 
                 <!-- Level -->
                 <div class="form-group">
-                    <label for="level">Level <span class="required">*</span></label>
+                    <label for="level">Tingkat <span class="required">*</span></label>
                     <select id="level" name="level" required>
-                        <option value="">-- Select Level --</option>
-                        <option value="easy">Easy</option>
-                        <option value="medium">Medium</option>
-                        <option value="hard">Hard</option>
+                        <option value="">-- Pilih Tingkat --</option>
+                        <option value="easy">Mudah</option>
+                        <option value="medium">Sedang</option>
+                        <option value="hard">Sulit</option>
                     </select>
                 </div>
 
                 <!-- Image -->
                 <div class="form-group image-group">
-                    <label for="image">Image</label>
+                    <label for="image">Gambar</label>
 
                     <div class="image-preview-container" id="imagePreviewContainer">
-                        <p class="no-image">No image selected.</p>
+                        <p class="no-image">Belum ada gambar yang dipilih.</p>
                     </div>
 
                     <input type="file" id="image" name="image" accept="image/*" class="image-input" />
 
                     <button type="button" id="btnRemoveImage" class="btn remove-image-btn hidden">
-                        Remove Image
+                        Hapus Gambar
                     </button>
                 </div>
 
                 <!-- Action Buttons -->
                 <div class="form-actions">
                     <button type="button" id="btnCancel" class="btn cancel-btn">
-                        Cancel
+                        Batal
                     </button>
-                    <button type="submit" id="btnSave" class="btn save-btn">Save</button>
+                    <button type="submit" id="btnSave" class="btn save-btn">Simpan</button>
                 </div>
             </form>
         </div>

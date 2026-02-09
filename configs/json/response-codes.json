@@ -1,86 +1,86 @@
 {
 	"200": {
 		"status": "OK",
-		"message": "Request successfully processed."
+		"message": "Permintaan berhasil diproses."
 	},
 	"201": {
 		"status": "Created",
-		"message": "Resource successfully created."
+		"message": "Sumber daya berhasil dibuat."
 	},
 	"202": {
 		"status": "Accepted",
-		"message": "Request accepted but processing is not complete."
+		"message": "Permintaan diterima, namun proses belum selesai."
 	},
 	"204": {
 		"status": "No Content",
-		"message": "Request successful but no content to return."
+		"message": "Permintaan berhasil, tetapi tidak ada konten yang dikembalikan."
 	},
 	"205": {
 		"status": "Reset Content",
-		"message": "Request processed, please reset view."
+		"message": "Permintaan berhasil diproses, silakan muat ulang tampilan."
 	},
 	"206": {
 		"status": "Partial Content",
-		"message": "Partial data follows as requested."
+		"message": "Data dikirim sebagian sesuai permintaan."
 	},
 	"307": {
 		"status": "Temporary Redirect",
-		"message": "Resource temporarily moved, refer to the URI provided."
+		"message": "Sumber daya dipindahkan sementara, silakan gunakan URI yang disediakan."
 	},
 	"308": {
 		"status": "Permanent Redirect",
-		"message": "Resource permanently moved, refer to the URI provided."
+		"message": "Sumber daya dipindahkan secara permanen, silakan gunakan URI yang disediakan."
 	},
 	"400": {
 		"status": "Bad Request",
-		"message": "The request cannot be processed due to bad syntax."
+		"message": "Permintaan tidak dapat diproses karena sintaks tidak valid."
 	},
 	"401": {
 		"status": "Unauthorized",
-		"message": "Authentication is needed to get requested response."
+		"message": "Autentikasi diperlukan untuk mengakses sumber daya ini."
 	},
 	"403": {
 		"status": "Forbidden",
-		"message": "You do not have permission to view this resource."
+		"message": "Anda tidak memiliki izin untuk mengakses sumber daya ini."
 	},
 	"404": {
 		"status": "Not Found",
-		"message": "The requested resource could not be found."
+		"message": "Sumber daya yang diminta tidak ditemukan."
 	},
 	"409": {
 		"status": "Conflict",
-		"message": "Request could not be processed because of conflict in the resource state."
+		"message": "Permintaan tidak dapat diproses karena terjadi konflik pada data."
 	},
 	"410": {
 		"status": "Gone",
-		"message": "The resource requested is no longer available and will not be available again."
+		"message": "Sumber daya yang diminta sudah tidak tersedia."
 	},
 	"422": {
 		"status": "Unprocessable Entity",
-		"message": "The request was well-formed but was unable to be followed due to semantic errors."
+		"message": "Permintaan valid, tetapi tidak dapat diproses karena kesalahan semantik."
 	},
 	"451": {
 		"status": "Unavailable For Legal Reasons",
-		"message": "The resource requested is unavailable for legal reasons."
+		"message": "Sumber daya tidak dapat diakses karena alasan hukum."
 	},
 	"500": {
 		"status": "Internal Server Error",
-		"message": "The server encountered an unexpected condition."
+		"message": "Terjadi kesalahan internal pada server."
 	},
 	"501": {
 		"status": "Not Implemented",
-		"message": "The server does not support the functionality required to fulfill the request."
+		"message": "Server tidak mendukung fungsi yang diminta."
 	},
 	"502": {
 		"status": "Bad Gateway",
-		"message": "The server received an invalid response from the upstream server."
+		"message": "Server menerima respons tidak valid dari server lain."
 	},
 	"503": {
 		"status": "Service Unavailable",
-		"message": "The server is temporarily unable to handle the request."
+		"message": "Server sementara tidak dapat menangani permintaan."
 	},
 	"504": {
 		"status": "Gateway Timeout",
-		"message": "The server did not receive a timely response from the upstream server."
+		"message": "Server tidak menerima respons tepat waktu dari server lain."
 	}
 }
